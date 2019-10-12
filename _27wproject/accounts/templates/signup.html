@@ -1,0 +1,171 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V2</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/myself.css">
+<!--===============================================================================================-->
+
+<script>
+        
+    function check(re, what, message) {
+        //alert("test"+what.value);
+        if(re.test(what.value)) {
+            return true;
+        }
+        alert(message);
+        what.value = "";
+        what.focus();
+        //return false;
+    }
+    function validateForSignUp(){
+        var re1 = /^[a-zA-Z0-9]{4,12}$/;
+        var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; 
+        var id = document.getElementById('id');
+        var password1 = document.getElementById("password1");
+        var password2 = document.getElementById("password2");
+        var email = document.getElementById("email");
+        var phone = document.getElementById("phoneNumber");
+
+        //alert("ffffffff");
+        //alert(id.value.match(/^[0-9]+$/));
+        //alert((/^[0-9]+$/).test(id.value));
+        
+        //alert("cccccc");
+        if ((!check(re1,id,"아이디는 4~12자 영문 대소문자와 숫자로만 입력")) || (!check(re1,password1,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) || (!check(re2,email,"적합하지 않은 이메일 형식입니다.")) || (!check(re3,phone,"핸드폰 번호를 양식에 맞게 작성하세요."))) {
+            return false;
+        }
+        //alert(password1.value==password2.value);
+        if (password1.value!=password2.value){
+            alert("비밀번호 확인 오류. 다시 확인해주세요.");
+            password2.value="";
+            password2.focus();
+            return false;
+        }
+        
+        //var radios = document.getElementsByName("gender");
+        var formValid = false;
+        
+        var i = 0;
+        while (!formValid && i < gender.length) {
+            if (gender[i].checked) formValid = true;
+            i++;
+        }
+        
+        if (!formValid){
+            alert("Must check some genderic option!");
+            return formValid;
+        }
+        document.getElementById("form1").method = "POST";
+        document.getElementById("form1").action = "{% url 'signup' %}";
+        alert("가입이 완료되었습니다.");
+    }
+    
+    </script>
+</head>
+
+{% if error %}
+{{ error }}
+<br>
+<br>
+{% endif %}
+
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form method="POST" action="{% url 'signup'%}"  class="login100-form validate-form">
+                        {% csrf_token %}
+					<span class="login100-form-title p-b-26">
+						SignUp
+					</span>
+
+					<span class="login100-form-title p-b-48">
+                    </span>
+					<div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="id" id = "id" value="">
+						<span class="login-bar" data-placeholder="Username"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="password" name="password1" id = "password1" value="" >
+						<span class="login-bar" data-placeholder="Password"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                            <input class="input100" type="password" name="password2" id = "password2" value="" >
+                            <span class="login-bar" data-placeholder="Confirm Password"></span>
+                        </div>
+
+                    <div class="wrap-input100 validate-input">
+                            <input class="input100" type="text" name="email" id = "email" value="">
+                            <span class="login-bar" data-placeholder="E-mail ex)abc@likelion.org"></span>
+                        </div>
+                        
+                    <div class="wrap-input100 validate-input">
+                            <input class="input100" type="text" name="phoneNumber" id = "phoneNumber" value="" maxlength="13">
+                            <span class="login-bar"data-placeholder="PhoneNumber (-빼고 입력)" ></span>
+                        </div>
+                    
+                    
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+                            <div class="login-background"></div>
+							<button class="login100-form-btn" type="submit" onClick = "validateForSignUp()" >
+								Sign up
+							</button>
+						</div>
+					</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/js/main.js"></script>
+
+</body>
+</html>
