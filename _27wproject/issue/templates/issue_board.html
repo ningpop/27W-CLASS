@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>27W CLASS</title>
+    <title>27W - 이슈</title>
 </head>
 <body>
-    <h1>27 WATT CLASS에 오신것을 환영합니다.</h1>
-    {% if user.is_authenticated %}
-    <h2> Welcome, {{user.username}} </h2>
-    <center><a href="{% url 'logout' %}">Logout</a></center>
-    {% else %}
-    <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}
+    <h1>27 WATT CLASS - 이슈</h1>
 
     <a href="{% url 'index' %}">홈</a>
     <a href="{% url 'community_board' %}">커뮤니티</a>

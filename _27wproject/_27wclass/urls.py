@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path
 import home.views
 import accounts.views
+import community.views
+import contact.views
+import issue.views
+import lecture.views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,4 +31,8 @@ urlpatterns = [
     path('accounts/login', accounts.views.login, name = 'login'),
     path('accounts/signup', accounts.views.signup, name = 'signup'),
     path('accounts/logout', accounts.views.logout, name = 'logout'),
+    path('community/community_board', community.views.community_board, name = 'community_board'),
+    path('contact/contact_board', contact.views.contact_board, name = 'contact_board'),
+    path('issue/issue_board', issue.views.issue_board, name = 'issue_board'),
+    path('lecture/lecture_board', lecture.views.lecture_board, name = 'lecture_board'),
 ]
