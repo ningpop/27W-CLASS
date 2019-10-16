@@ -7,6 +7,36 @@
     <title>27W - 문의하기</title>
 </head>
 <body>
+    <a href="{% url 'index' %}">홈</a>
+    <a href="{% url 'community_board' %}">커뮤니티</a>
+    <a href="{% url 'lecture_board' %}">강의</a>
+    <a href="{% url 'issue_board' %}">이슈</a>
+    <a href="{% url 'contact_create' %}">글쓰기</a>
     <h1>27 WATT CLASS - 문의하기</h1>
+    <div>objs 받아와서 게시판 list 형태로 쭉 적어주도록</div>
 </body>
 </html>
+<!--<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>27W CLASS</title>
+</head>
+<body>
+    <h1>27 WATT CLASS에 오신것을 환영합니다.</h1>
+    {% if user.is_authenticated %}
+    <h2> Welcome, {{user.username}} </h2>
+    <center><a href="{% url 'logout' %}">Logout</a></center>
+    {% else %}
+    <center><a href="{%url 'login' %}">  Login</a></center>
+    {%endif%}
+   
+    </div>
+    <a href="{% url 'index' %}">홈</a>
+    <a href="{% url 'community_board' %}">커뮤니티</a>
+    <a href="{% url 'lecture_board' %}">강의</a>
+    <a href="{% url 'issue_board' %}">이슈</a>
+</body>
+</html>-->

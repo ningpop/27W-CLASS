@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>27W - 강의</title>
+
+    <style>
+        a{
+            text-decoration: none;
+        }
+        ul{
+            list-style: none;
+            text-align: center;
+        }
+        ul li{
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>27 WATT CLASS - 강의 Detail Page</h1>
+
+    {% if user.is_authenticated %}
+    <h2> Welcome, {{user.username}} </h2>
+    <center><a href="{% url 'logout' %}">Logout</a></center>
+    {% else %}
+    <center><a href="{%url 'login' %}">  Login</a></center>
+    {%endif%}
+    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+
+    <hr>
+
+    <nav>
+        <div>
+            <a href="{% url 'index' %}">홈</a>
+            <a href="{% url 'community_board' %}">커뮤니티</a>
+            <a href="{% url 'lecture_board' %}">강의</a>
+            <a href="{% url 'issue_board' %}">이슈</a>
+        </div>
+    </nav>
+
+    <hr>
+
+    <div>
+        <img src="">
+        <p>강의 소개</p>
+    </div>
+
+    <div style="display: scroll; float: right; position: fixed; clear:both;">
+        <p>(컨텐츠 제목)</p>
+        <p>(가격)</p>
+        <p>(좋아요 수)</p>
+        <button><a href="{% url 'confirm_order' %}">클래스 참여</a></button>
+    </div>
+
+    <hr>
+
+    <div>
+        <nav>
+            <ul>
+                <li><a href="">클래스 소개</a></li>
+                <li><a href="">커리큘럼</a></li>
+                <li><a href="">패키지 혜택</a></li>
+                <li><a href="">크리에이터</a></li>
+                <li><a href="">커뮤니티 00개</a></li>
+                <li><a href="">추천</a></li>
+                <li><a href="">환불정책</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <hr>
+
+    <div>
+        <h3>(제목)</h3>
+        <p>(본문)</p>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <hr>
+
+    <footer>
+        <div>
+            <p>이십칠와트클래스 27WATT CLASS</p>
+            <p>상호명 : 이십칠와트</p>
+            <p>대표 : 김선웅 010-4713-6915</p>
+            <p>사업자등록번호 : 847-45-00467</p>
+            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
+            <p>Copyright 27WATT 2019 All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

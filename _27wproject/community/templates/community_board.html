@@ -8,10 +8,22 @@
 </head>
 <body>
     <h1>27 WATT CLASS - 커뮤니티</h1>
+    
+    {% if user.is_authenticated %}
+    <h2> Welcome, {{user.username}} </h2>
+    <center><a href="{% url 'logout' %}">Logout</a></center>
+    {% else %}
+    <center><a href="{%url 'login' %}">  Login</a></center>
+    {%endif%}
 
-    <a href="{% url 'index' %}">홈</a>
-    <a href="{% url 'community_board' %}">커뮤니티</a>
-    <a href="{% url 'lecture_board' %}">강의</a>
-    <a href="{% url 'issue_board' %}">이슈</a>
+    <nav>
+        <div>
+            <a href="{% url 'index' %}">홈</a>
+            <a href="{% url 'community_board' %}">커뮤니티</a>
+            <a href="{% url 'lecture_board' %}">강의</a>
+            <a href="{% url 'issue_board' %}">이슈</a>
+        </div>
+    </nav>
+
 </body>
 </html>

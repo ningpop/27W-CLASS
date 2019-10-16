@@ -1,17 +1,84 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>27W - 강의</title>
+
+    <style>
+        .lecture_board{
+            text-align: center;
+        }
+        .more{
+            text-align: right;
+        }
+        ul{
+            list-style: none;
+            text-align: center;
+        }
+        ul li{
+            display: inline;
+        }
+    </style>
 </head>
 <body>
     <h1>27 WATT CLASS - 강의</h1>
 
-    <a href="{% url 'index' %}">홈</a>
-    <a href="{% url 'community_board' %}">커뮤니티</a>
-    <a href="{% url 'lecture_board' %}">강의</a>
-    <a href="{% url 'issue_board' %}">이슈</a>
+    {% if user.is_authenticated %}
+    <h2> Welcome, {{user.username}} </h2>
+    <center><a href="{% url 'logout' %}">Logout</a></center>
+    {% else %}
+    <center><a href="{%url 'login' %}">  Login</a></center>
+    {%endif%}
+    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+
+    <hr>
+
+    <nav>
+        <div>
+            <a href="{% url 'index' %}">홈</a>
+            <a href="{% url 'community_board' %}">커뮤니티</a>
+            <a href="{% url 'lecture_board' %}">강의</a>
+            <a href="{% url 'issue_board' %}">이슈</a>
+        </div>
+    </nav>
+
+    <hr>
+
+    <div>
+        <ul>
+            <li><a href="">예술</a></li>
+            <li><a href="">디자인</a></li>
+            <li><a href="">소셜미디어</a></li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div class="lecture_board">
+        <h3>ONLINE LECTURE</h3>
+        <div>
+            <h4>(title)</h4>
+            <img src="">
+            <p>(소개)</p>
+            <p>(이름)</p>
+            <p class="more"><a href="{% url 'lecture_detail' %}">더보기</a></p>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div>
+            <p>이십칠와트클래스 27WATT CLASS</p>
+            <p>상호명 : 이십칠와트</p>
+            <p>대표 : 김선웅 010-4713-6915</p>
+            <p>사업자등록번호 : 847-45-00467</p>
+            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
+            <p>Copyright 27WATT 2019 All rights reserved</p>
+        </div>
+    </footer>
 </body>
 </html>

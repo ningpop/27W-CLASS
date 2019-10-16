@@ -29,17 +29,22 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home.views.index, name='index'),
 
-    path('accounts/login', accounts.views.login, name = 'login'),
-    path('accounts/signup', accounts.views.signup, name = 'signup'),
-    path('accounts/logout', accounts.views.logout, name = 'logout'),
+    path('accounts/',include('accounts.urls')),
+    #path('accounts/login', accounts.views.login, name = 'login'),
+    #path('accounts/signup', accounts.views.signup, name = 'signup'),
+    #path('accounts/logout', accounts.views.logout, name = 'logout'),
 
     #path('community/community_board', community.views.community_board, name = 'community_board'),
     
     path('community/', include('community.urls')),
+    path('lecture/', include('lecture.urls')),
     
-    path('contact/contact_board', contact.views.contact_board, name = 'contact_board'),
+    #path('contact/contact_board', contact.views.contact_board, name = 'contact_board'),
+    #path('contact/create', contact.views.create, name = 'create'),
+    path('contact/',include('contact.urls')),
+    path('issue/',include('issue.urls')),
+    path('payment/', include('payment.urls')),
+    #path('issue/issue_board', issue.views.issue_board, name = 'issue_board'),
     
-    path('issue/issue_board', issue.views.issue_board, name = 'issue_board'),
-    
-    path('lecture/lecture_board', lecture.views.lecture_board, name = 'lecture_board'),
+    # path('lecture/lecture_board', lecture.views.lecture_board, name = 'lecture_board'),
 ]

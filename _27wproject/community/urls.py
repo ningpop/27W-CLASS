@@ -16,20 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
-import home.views
-import accounts.views
-import community.views
-import contact.views
-import issue.views
-import lecture.views
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.community_board, name='community_board'),
-    path('detail/', views.detail, name = 'detail'),
-    path('create/', views.create, name = 'create'),
+    path('detail/', views.community_detail, name = 'community_detail'),
+    path('create/', views.create, name = 'create')
 
     #path('community_board/', .views.community_board, name = 'community_board'),
     
