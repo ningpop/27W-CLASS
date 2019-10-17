@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.lecture_board, name='lecture_board'),
     path('detail/', views.lecture_detail, name = 'lecture_detail'),
+    #path('detail/<int:lecture_id>/', views.lecture_detail, name = 'lecture_detail'),
+    
     #path('create/', views.create, name = 'create'),
 
     #path('community_board/', .views.community_board, name = 'community_board'),

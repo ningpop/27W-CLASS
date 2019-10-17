@@ -57,16 +57,19 @@
 
     <hr>
 
+    {% for lecture in lecture_list.all %}
     <div class="lecture_board">
         <h3>ONLINE LECTURE</h3>
         <div>
-            <h4>(title)</h4>
-            <img src="">
-            <p>(소개)</p>
-            <p>(이름)</p>
+            <h4>{{ lecture.title }}</h4>
+            <!-- <img src="{{ lecture.image.url }}"> -->
+            <p>{{ lecture.description }}</p>
+            <p>{{ lecture.tutor }}</p>
             <p class="more"><a href="{% url 'lecture_detail' %}">더보기</a></p>
+            <!-- <p class="more"><a href="{# url 'lecture_detail' lecture.id #}">더보기</a></p> -->
         </div>
     </div>
+    {% endfor %}
 
     <hr>
 

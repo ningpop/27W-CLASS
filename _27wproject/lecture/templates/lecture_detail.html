@@ -45,14 +45,14 @@
     <hr>
 
     <div>
-        <img src="">
+        <img src="">    <!-- <img src="{{ lecture.image.url }}"> -->
         <p>강의 소개</p>
     </div>
 
     <div style="display: scroll; float: right; position: fixed; clear:both;">
-        <p>(컨텐츠 제목)</p>
-        <p>(가격)</p>
-        <p>(좋아요 수)</p>
+        <p>(컨텐츠 제목)</p>    <!-- <p>{{ lecture.title }}</p> -->
+        <p>(가격)</p>   <!-- <p>{{ lecture.price }}</p> -->
+        <p>(좋아요 수)</p>  <!-- <p>{{ lecture.like }}</p> -->
         <button><a href="{% url 'confirm_order' %}">클래스 참여</a></button>
     </div>
 
