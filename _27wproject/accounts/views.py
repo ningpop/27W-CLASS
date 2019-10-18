@@ -12,6 +12,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 
+
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username', False)
@@ -29,4 +30,6 @@ def login(request):
 def logout (request):
     auth.logout(request)
     return redirect('index')
+
+
 

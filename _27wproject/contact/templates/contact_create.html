@@ -5,22 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>27W - 문의하기</title>
+
+    <style>
+        .banner{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <a href="{% url 'index' %}">홈</a>
-    <a href="{% url 'community_board' %}">커뮤니티</a>
-    <a href="{% url 'lecture_board' %}">강의</a>
-    <a href="{% url 'issue_board' %}">이슈</a>
-    
-    새 글 적을수 잇게...
+    <h1>27 WATT CLASS에 오신것을 환영합니다.</h1>
 
-    <!--{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
     <h2> Welcome, {{user.username}} </h2>
     <center><a href="{% url 'logout' %}">Logout</a></center>
     {% else %}
     <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}-->
+    {%endif%}
 
-    <h1>27 WATT CLASS - 문의하기</h1>
+    <hr>
+
+    <nav>
+        <div>
+            <a href="{% url 'index' %}">홈</a>
+            <a href="{% url 'community_board' %}">커뮤니티</a>
+            <a href="{% url 'lecture_board' %}">강의</a>
+            <a href="{% url 'issue_board' %}">이슈</a>
+        </div>
+    </nav>
+        
+    <hr>
+
+    <div class="banner">
+        <h3>문의하기</h3>
+    </div>
+
+    <hr>
+
+    <div>
+        <p>제목: <input type="text" placeholder="제목을 입력하세요. " name="subject"/></p>
+
+        <p>내용: </p>
+        <textarea cols="100" rols="100" placeholder="내용을 입력하세요. " name="content"></textarea>
+    
+        <button type="button" class="btn btn-outline-dark">등록하기</button>
+    </div>
+    
+    <footer>
+        <div>
+            <p>이십칠와트클래스 27WATT CLASS</p>
+            <p>상호명 : 이십칠와트</p>
+            <p>대표 : 김선웅 010-4713-6915</p>
+            <p>사업자등록번호 : 847-45-00467</p>
+            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
+            <p>Copyright 27WATT 2019 All rights reserved</p>
+        </div>
+    </footer>
+
 </body>
 </html>

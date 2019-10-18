@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'contact.apps.ContactConfig',
     'issue.apps.IssueConfig',
     'lecture.apps.LectureConfig',
-    'users.apps.UsersConfig',
     'payment.apps.PaymentConfig',
 ]
 

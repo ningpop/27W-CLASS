@@ -21,6 +21,9 @@
         ul li{
             display: inline;
         }
+        .banner{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -57,9 +60,12 @@
 
     <hr>
 
+    <div class="banner">
+        <h3>ONLINE LECTURE</h3>
+    </div>
+    
     {% for lecture in lecture_list.all %}
     <div class="lecture_board">
-        <h3>ONLINE LECTURE</h3>
         <div>
             <h4>{{ lecture.title }}</h4>
             <!-- <img src="{{ lecture.image.url }}"> -->

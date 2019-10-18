@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V2</title>
+	<title>sign up</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -50,12 +50,12 @@
         var password2 = document.getElementById("password2");
         var email = document.getElementById("email");
         var phone = document.getElementById("phoneNumber");
+        var agree = document.getElementsByName("agree");
 
         //alert("ffffffff");
         //alert(id.value.match(/^[0-9]+$/));
         //alert((/^[0-9]+$/).test(id.value));
         
-        //alert("cccccc");
         if ((!check(re1,id,"아이디는 4~12자 영문 대소문자와 숫자로만 입력")) || (!check(re1,password1,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) || (!check(re2,email,"적합하지 않은 이메일 형식입니다.")) || (!check(re3,phone,"핸드폰 번호를 양식에 맞게 작성하세요."))) {
             return false;
         }
@@ -66,20 +66,27 @@
             password2.focus();
             return false;
         }
-        
-        //var radios = document.getElementsByName("gender");
+
+          //agreement;
+
         var formValid = false;
-        
-        var i = 0;
-        while (!formValid && i < gender.length) {
-            if (gender[i].checked) formValid = true;
-            i++;
+
+        for(var i=0 ; i<agree.length ; i++)
+        {
+            if(agree[i].checked) {
+                formValid = true;
+            } else {
+                formValid = false;
+            }
+
         }
-        
-        if (!formValid){
-            alert("Must check some genderic option!");
-            return formValid;
+        if (formValid) {
+            alert("모든 약관에 동의함."); 
+            return false;
         }
+
+        else { alert("모든 약관에 동의해 주세요.") }
+
         document.getElementById("form1").method = "POST";
         document.getElementById("form1").action = "{% url 'signup' %}";
         alert("가입이 완료되었습니다.");
@@ -104,7 +111,6 @@
 					<span class="login100-form-title p-b-26">
 						SignUp
 					</span>
-
 					<span class="login100-form-title p-b-48">
                     </span>
 					<div class="wrap-input100 validate-input" >
@@ -130,16 +136,13 @@
                             <input class="input100" type="text" name="phoneNumber" id = "phoneNumber" value="" maxlength="13">
                             <span class="login-bar"data-placeholder="PhoneNumber (-빼고 입력)" ></span>
                         </div>
-
-
                         <label>
-                            <iframe id="agreement"  style="overflow-x:hidden; overflow:auto; width:100%; min-height:50px;" src="../agreement/"></iframe>
-                            <br>
-                            <input type="checkbox" name="agree" id="chk1"> 이용약관에 동의합니다.
-                            </label>
-                    
-                    
-
+                                <iframe id="agreement"  style="overflow-x:hidden; overflow:auto; width:100%; min-height:50px;" src="accounts/agreement/"></iframe>
+                                <br>
+                                <input type="checkbox" name="agree" id="agree"> 이용약관에 동의합니다.
+                                
+                                </label>
+    
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
                             <div class="login-background"></div>
