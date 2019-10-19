@@ -1,7 +1,7 @@
 from django.shortcuts import render
-#
 from django.views.generic import ListView
-#from .models import Question
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Community
 
 # Create your views here.
 
@@ -16,10 +16,23 @@ class IndexView(ListView):
 '''
 
 def community_board(request):
-    return render(request, 'community_board.html')
+    community_list = Community.objects
+    return render(request, 'community_board.html', {'community_list': community_list})
 
-def create(request):
-    return render(request, 'create.html')
+def community_detail(request, community_id):
+    community_detail = get_object_or_404(Community, pk=community_id)
+    return render(request, 'community_detail.html', {'community_detail':community_detail})
 
-def community_detail(request):
-    return render(request, 'community_detail.html')  
+
+def community_create(request):
+    '''
+    community = Community()
+    community.title = request.GET['title']
+    community.text = request.GET['text']
+
+    #나머지 필드들은 추후에 추가할 예정
+
+    community.save()
+    return redirect('community/')
+    '''
+    return render(request, 'community_create.html')

@@ -1,13 +1,54 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>27W - 커뮤니티</title>
+    <title>27W - 문의하기</title>
 </head>
 <body>
-    <h1>27 WATT CLASS - 커뮤니티</h1>
+    <a href="{% url 'index' %}">홈</a>
+    <a href="{% url 'community_board' %}">커뮤니티</a>
+    <a href="{% url 'lecture_board' %}">강의</a>
+    <a href="{% url 'issue_board' %}">이슈</a>
+    <a href="{% url 'contact_create' %}">글쓰기</a>
+    <h1>27 WATT CLASS - 문의하기</h1>
+    <div>objs 받아와서 게시판 list 형태로 쭉 적어주도록</div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>27W - 문의하기</title>
+
+    <style>
+        .banner{
+            text-align: center;
+        }
+        .num{
+            width: 10%;
+        }
+        .title{
+            width: 70%;
+        }
+        .date{
+            width: 10%;
+        }
+        .who{
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+    </header>
+    
+    <h1>27 WATT CLASS에 오신것을 환영합니다.</h1>
     
     {% if user.is_authenticated %}
     <h2> Welcome, {{user.username}} </h2>
@@ -15,7 +56,8 @@
     {% else %}
     <center><a href="{%url 'login' %}">  Login</a></center>
     {%endif%}
-    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+
+    <hr>
 
     <nav>
         <div>
@@ -26,5 +68,47 @@
         </div>
     </nav>
 
+    <hr>
+
+    <div class="banner">
+        <h3>COMMUNITY</h3>
+    </div>
+
+    <hr>
+
+    <p style="text-align: right;"><a href="{% url 'community_create' %}">글쓰기</a></p>
+
+    <hr>
+
+    <table width="100%">
+        <tr>
+            <th scope="col" class="num">글 번호</th>
+            <th scope="col" class="title">글 제목</th>
+            <th scope="col" class="date">작성일</th>
+            <th scope="col" class="who">작성자</th>
+        </tr>
+        
+        {% for community in community_list.all %}
+        <tr>
+            <td class="num"><h4>(글 번호)</h4></td>
+            <td class="title"><h4>{{ community.title }}</h4></td>
+            <td class="date"><h4>{{ community.created_at }}</h4></td>
+            <td class="who"><h4>{{ community.user }}</h4></td>
+        </tr>
+        {% endfor %}
+    </table>    
+
+    <hr>
+
+    <footer>
+        <div>
+            <p>이십칠와트클래스 27WATT CLASS</p>
+            <p>상호명 : 이십칠와트</p>
+            <p>대표 : 김선웅 010-4713-6915</p>
+            <p>사업자등록번호 : 847-45-00467</p>
+            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
+            <p>Copyright 27WATT 2019 All rights reserved</p>
+        </div>
+    </footer>
 </body>
 </html>

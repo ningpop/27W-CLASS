@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>27W CLASS</title>
+
+    <style>
+        .lecture_board{
+            text-align: center;
+        }
+        .more{
+            text-align: right;
+        }
+        ul{
+            list-style: none;
+            text-align: center;
+        }
+        ul li{
+            display: inline;
+        }
+        .banner{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>27 WATT CLASS에 오신것을 환영합니다.</h1>
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+    </header>
     
+    <h1>27 WATT CLASS에 오신 것을 환영합니다.</h1>
+
     {% if user.is_authenticated %}
     <h2> Welcome, {{user.username}} </h2>
     <center><a href="{% url 'logout' %}">Logout</a></center>
@@ -16,6 +40,8 @@
     <center><a href="{%url 'login' %}">  Login</a></center>
     {%endif%}
     <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+
+    <hr>
 
     <nav>
         <div>
@@ -25,5 +51,49 @@
             <a href="{% url 'issue_board' %}">이슈</a>
         </div>
     </nav>
+
+    <hr>
+
+    <div class="banner">
+        <h3>COMMUNITY</h3>
+    </div>
+
+    <hr>
+
+    <div class="banner">
+        <h3>ONLINE LECTURE</h3>
+    </div>
+    
+    {% for lecture in lecture_list.all %}
+    <div class="lecture_board">
+        <div>
+            <h4>{{ lecture.title }}</h4>
+            <!-- <img src="{{ lecture.image.url }}"> -->
+            <p>{{ lecture.description }}</p>
+            <p>{{ lecture.tutor }}</p>
+            <p class="more"><a href="{% url 'lecture_detail' %}">더보기</a></p>
+            <!-- <p class="more"><a href="{# url 'lecture_detail' lecture.id #}">더보기</a></p> -->
+        </div>
+    </div>
+    {% endfor %}
+
+    <hr>
+
+    <div class="banner">
+        <h3>ISSUE</h3>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div>
+            <p>이십칠와트클래스 27WATT CLASS</p>
+            <p>상호명 : 이십칠와트</p>
+            <p>대표 : 김선웅 010-4713-6915</p>
+            <p>사업자등록번호 : 847-45-00467</p>
+            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
+            <p>Copyright 27WATT 2019 All rights reserved</p>
+        </div>
+    </footer>
 </body>
 </html>

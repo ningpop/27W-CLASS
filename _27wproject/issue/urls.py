@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     path('issue_board', views.issue_board, name = 'issue_board'),
+    path('issue_detail', views.issue_detail, name = 'issue_detail'),
 ]

@@ -17,6 +17,10 @@
     </style>
 </head>
 <body>
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+    </header>
+
     <h1>27 WATT CLASS - 결제하기</h1>
 
     {% if user.is_authenticated %}

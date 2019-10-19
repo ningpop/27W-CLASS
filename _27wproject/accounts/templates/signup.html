@@ -69,27 +69,30 @@
 
           //agreement;
 
-        var formValid = false;
-
-        for(var i=0 ; i<agree.length ; i++)
-        {
-            if(agree[i].checked) {
+          var formValid = false;
+        
+          var i = 0;
+        while (!formValid && i < agree.length) {
+            if (agree[i].checked) 
+            {
                 formValid = true;
-            } else {
-                formValid = false;
+                i++;
             }
+            else alert("약관에 동의해주세요!"); 
 
-        }
-        if (formValid) {
-            alert("모든 약관에 동의함."); 
-            return false;
-        }
+        }return formValid
 
-        else { alert("모든 약관에 동의해 주세요.") }
+        if (formValid == true) {
 
         document.getElementById("form1").method = "POST";
         document.getElementById("form1").action = "{% url 'signup' %}";
         alert("가입이 완료되었습니다.");
+
+        }
+        else return false;
+
+
+
     }
     
     </script>

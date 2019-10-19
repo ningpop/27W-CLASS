@@ -21,6 +21,10 @@
     </style>
 </head>
 <body>
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+    </header>
+    
     <h1>27 WATT CLASS - 강의 Detail Page</h1>
 
     {% if user.is_authenticated %}

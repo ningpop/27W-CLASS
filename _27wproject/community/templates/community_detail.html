@@ -8,6 +8,10 @@
     <title>27W - 커뮤니티</title>
 </head>
 <body>
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+    </header>
+
     <h1>27 WATT CLASS - 커뮤니티 Detail Page</h1>
 
     {% if user.is_authenticated %}
@@ -27,10 +31,52 @@
         </div>
     </nav>
 
-    <div>
-        <h4>제목</h4>
-        <p>본문 내용</p>
+    <br><br>
+    <hr style="border:solid 2px #e69900">
+    
+    <br>
+    
+    <div class="container">
+        <form action="">
+          <h4>제목: </h4>
+          <input type="text" name="title">
+          <br>
+          <br>
+          <h4>본문: </h4>
+          <textarea cols=40 rows=10 name="body"></textarea>
+          <br>
+          <br>
+          <input class="btn btn-dark" type="submit" value="제출하기">
+      </form>
     </div>
+
+    <div>
+        <div>
+            <h2>{{community_detail.title}}</h2>
+            <p>{{user.username}} / {{community_detail.created_at}}</p>
+            <p>Category : {{community_detail.category}}</p>
+            <a href="">수정</a>
+            <a href="">삭제</a>    
+        <div>
+        
+        <br>
+        <hr>
+        <br>
+
+        <div>
+            <p>{{community_detail.image}}</p>
+            <p>{{community_detail.text}}</p>    
+        </div>
+        
+        <br><br>
+        <div>
+            <h2>댓글</h2>
+            <hr style="border:solid 2px #e69900">
+        </div>
+    </div>
+
+    <br><br>
+    <hr>
 
     <footer>
         <div>
