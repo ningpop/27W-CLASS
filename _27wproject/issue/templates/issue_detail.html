@@ -22,12 +22,12 @@
         <a href="{% url 'community_board' %}">커뮤니티</a>
         <a href="{% url 'lecture_board' %}">강의</a>
         <a href="{% url 'issue_board' %}">이슈</a>
-           
+
         
         <tbody>
                 <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
                     <tr>
-                       <th>제목: </th>
+                        <th>제목: </th>
                         <td><input type="text" placeholder="제목을 입력하세요. " name="subject"/><br></td>
                     </tr>
                     
@@ -39,16 +39,16 @@
                 </form>
             </tbody>
             <table>
-                  
+
                 <!--<input type="text" placeholder="제목을 입력하세요. " name="subject"/>-->
                 <!--파일 업로드를 이미지(jpeg, gif, png)로만 제한-->
-                 <form method="post" action="..." enctype="multipart/form-data">
-                   <label for="image">Photo: </label>
-                   <input type = "file"accept = "image /*"name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">
-                   <!--이미지파일 업로드시 미리보기-->
-                   <div id='View_area' style='position:relative; width: 100px; height: 100px; color: black; border: 0px solid black; dispaly: inline; '></div>
-                  </form>
-                  <button type="button" class="btn btn-outline-dark">등록하기</button>
+                <form method="post" action="..." enctype="multipart/form-data">
+                <label for="image">Photo: </label>
+                <input type = "file"accept = "image /*"name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">
+                <!--이미지파일 업로드시 미리보기-->
+                <div id='View_area' style='position:relative; width: 100px; height: 100px; color: black; border: 0px solid black; dispaly: inline; '></div>
+                </form>
+                <button type="button" class="btn btn-outline-dark">등록하기</button>
         
             </table>
     
@@ -57,7 +57,7 @@
             <h3>Comment</h3>
                 <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
                     <tr>
-                       <th>제목: </th>
+                        <th>제목: </th>
                         <td><input type="text" placeholder="제목을 입력하세요. " name="subject"/><br></td>
                     </tr>
                     

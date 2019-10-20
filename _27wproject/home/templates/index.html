@@ -28,18 +28,28 @@
 </head>
 <body>
     <header>
-        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+        <div>
+            <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+        </div>
+
+        <div>
+            <p>(검색창 위치)</p>
+        </div>
+
+        <div>
+            {% if user.is_authenticated %}
+            <h3>Welcome, {{user.username}}</h3>
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a href="{%url 'login' %}">Login</a>
+            {%endif%}
+            | <a href="{%url 'contact_board' %}">문의하기</a>
+        </div>
     </header>
     
     <h1>27 WATT CLASS에 오신 것을 환영합니다.</h1>
 
-    {% if user.is_authenticated %}
-    <h2> Welcome, {{user.username}} </h2>
-    <center><a href="{% url 'logout' %}">Logout</a></center>
-    {% else %}
-    <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}
-    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+    
 
     <hr>
 
