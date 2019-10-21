@@ -8,11 +8,8 @@
     <title>27W - 강의</title>
 
     <style>
-        .lecture_board{
-            text-align: center;
-        }
-        .more{
-            text-align: right;
+        a{
+            text-decoration: none;
         }
         ul{
             list-style: none;
@@ -24,14 +21,17 @@
         .banner{
             text-align: center;
         }
+        .lecture_form{
+            padding-left: 30%;
+        }
     </style>
 </head>
 <body>
     <header>
         <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
     </header>
-
-    <h1>27 WATT CLASS - 강의</h1>
+    
+    <h1>27 WATT CLASS - 강의 등록</h1>
 
     {% if user.is_authenticated %}
     <h2> Welcome, {{user.username}} </h2>
@@ -54,36 +54,29 @@
 
     <hr>
 
-    <p style="text-align: right;">
-        <a href="{% url 'lecture_create' %}">글쓰기</a>
-    </p>
-
     <div>
-        <ul>
-            <li><a href="">예술</a></li>
-            <li><a href="">디자인</a></li>
-            <li><a href="">소셜미디어</a></li>
-        </ul>
-    </div>
-
-    <hr>
-
-    <div class="banner">
-        <h3>ONLINE LECTURE</h3>
-    </div>
-    
-    {% for lecture in lecture_list.all %}
-    <div class="lecture_board">
-        <div>
-            <h4>{{ lecture.title }}</h4>
-            <img src="{{ lecture.image.url }}">
-            <p>{{ lecture.description }}</p>
-            <p>{{ lecture.tutor }}</p>
-            <!-- <p class="more"><a href="{% url 'lecture_detail' %}">더보기</a></p> -->
-            <p class="more"><a href="{% url 'lecture_detail' lecture.lecture_id %}">더보기</a></p>
+        <div class="banner">
+            <h3>새 게시물 작성</h3>
         </div>
+
+        <form class="lecture_form" action="{% url 'submit' %}">
+            <p>
+                카테고리: 
+                <select name="category" style="width: 39%;">
+                    <option value="">카테고리 선택</option>
+                    <option value="art">예술</option>
+                    <option value="design">디자인</option>
+                    <option value="social_media">소셜미디어</option>
+                </select>
+            </p>
+            <p>제목: <input type="text" placeholder="제목을 입력하세요." name="title" size="74"/></p>
+            <p>가격: <input type="text" placeholder="가격을 입력하세요." name="price" size="74"/></p>
+            <p>사진: <input type='file' name="image" accept=".png, .jpg, .jpeg" /></p>
+            <p>컨텐츠 내용: <textarea cols="68" rows="10" placeholder="내용을 입력하세요." name="content"></textarea></p>
+            <button type="submit">저장</button>
+            <button type="button"><a href="{% url 'lecture_board' %}">목록</a></button>
+        </form>
     </div>
-    {% endfor %}
 
     <hr>
 

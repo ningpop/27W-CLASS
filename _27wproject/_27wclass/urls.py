@@ -47,4 +47,4 @@ urlpatterns = [
     #path('issue/issue_board', issue.views.issue_board, name = 'issue_board'),
     
     # path('lecture/lecture_board', lecture.views.lecture_board, name = 'lecture_board'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -69,18 +69,7 @@
 
           //agreement;
 
-          var formValid = false;
-        
-          var i = 0;
-        while (!formValid && i < agree.length) {
-            if (agree[i].checked) 
-            {
-                formValid = true;
-                i++;
-            }
-            else alert("약관에 동의해주세요!"); 
 
-        }return formValid
 
         if (formValid == true) {
 
@@ -142,7 +131,7 @@
                         <label>
                                 <iframe id="agreement"  style="overflow-x:hidden; overflow:auto; width:100%; min-height:50px;" src="accounts/agreement/"></iframe>
                                 <br>
-                                <input type="checkbox" name="agree" id="agree"> 이용약관에 동의합니다.
+                                <input type="checkbox" > 이용약관에 동의합니다.
                                 
                                 </label>
     
