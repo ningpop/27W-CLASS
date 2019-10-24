@@ -19,7 +19,7 @@ def lecture_detail(request):
 
 def lecture_detail(request, lecture_id):
     lecture_detail = get_object_or_404(Lecture, pk=lecture_id)
-    return render(request, 'lecture_board.html', {'lecture': lecture_detail})
+    return render(request, 'lecture_detail.html', {'lecture': lecture_detail})
 
 def lecture_create(request):
     return render(request, 'lecture_create.html')

@@ -79,8 +79,8 @@
             <img src="{{ lecture.image.url }}">
             <p>{{ lecture.description }}</p>
             <p>{{ lecture.tutor }}</p>
-            <!-- <p class="more"><a href="{% url 'lecture_detail' %}">더보기</a></p> -->
-            <p class="more"><a href="{% url 'lecture_detail' lecture.lecture_id %}">더보기</a></p>
+            <!-- <p class="more"><a href="{# url 'lecture_detail' #}">더보기</a></p> -->
+            <p class="more"><a href="{% url 'lecture_detail' lecture.id %}">더보기</a></p>
         </div>
     </div>
     {% endfor %}

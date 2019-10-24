@@ -13,10 +13,20 @@
         }
         ul{
             list-style: none;
-            text-align: center;
         }
         ul li{
             display: inline;
+        }
+        #navber{
+            overflow: hidden;
+        }
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        .content {
+            padding-top: 60px;
         }
     </style>
 </head>
@@ -49,76 +59,114 @@
     <hr>
 
     <div>
-        <img src="">    <!-- <img src="{{ lecture.image.url }}"> -->
-        <p>강의 소개</p>
+        <h2>강의 소개</h2>
+        <img src="{{ lecture.image.url }}">
     </div>
 
-    <div style="display: scroll; float: right; position: fixed; clear:both;">
-        <p>(컨텐츠 제목)</p>    <!-- <p>{{ lecture.title }}</p> -->
-        <p>(가격)</p>   <!-- <p>{{ lecture.price }}</p> -->
-        <p>(좋아요 수)</p>  <!-- <p>{{ lecture.like }}</p> -->
+    <div style="position: fixed; top: 60%; right: 20%;">
+        <p>강의명: {{ lecture.title }}</p>
+        <p>가격: {{ lecture.price }}</p>
+        <p>Like: (좋아요 수)</p>
         <button><a href="{% url 'confirm_order' %}">클래스 참여</a></button>
     </div>
 
-    <hr>
-
-    <div>
-        <nav>
-            <ul>
-                <li><a href="">클래스 소개</a></li>
-                <li><a href="">커리큘럼</a></li>
-                <li><a href="">패키지 혜택</a></li>
-                <li><a href="">크리에이터</a></li>
-                <li><a href="">커뮤니티 00개</a></li>
-                <li><a href="">추천</a></li>
-                <li><a href="">환불정책</a></li>
-            </ul>
-        </nav>
+    <div id="navbar">
+        <hr>
+        <ul>
+            <li><a href="#info">클래스 소개</a></li>
+            <li><a href="#curriculum">커리큘럼</a></li>
+            <li><a href="#benefit">패키지 혜택</a></li>
+            <li><a href="#creater">크리에이터</a></li>
+            <li><a href="">커뮤니티 00개</a></li>
+            <li><a href="">추천</a></li>
+            <li><a href="#refund">환불정책</a></li>
+        </ul>
+        <hr>
     </div>
 
-    <hr>
-
     <div>
-        <h3>(제목)</h3>
-        <p>(본문)</p>
+        <div id="info" class="content">
+            <h3>{{ lecture.title }}</h3>
+            <p>{{ lecture.description }}</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+    
+        <div id="curriculum" class="content">
+            <h3>커리큘럼</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+    
+        <div id="benefit" class="content">
+            <h3>패키지 혜택</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+    
+        <div id="creater" class="content">
+            <h3>크리에이터</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <hr>
+        <div id="refund">
+            <h4>환불정책</h4>
+            <p>환불이 불가합니다. 그냥 들으세요. 어쩔 수 없습니다. 다음부터는 신중하게 구매하세요.</p>
+        </div>
     </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
     <hr>
 
@@ -132,5 +180,20 @@
             <p>Copyright 27WATT 2019 All rights reserved</p>
         </div>
     </footer>
+
+    <script>
+        window.onscroll = function() {myFunction()};
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function myFunction() {
+            if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+            } else {
+            navbar.classList.remove("sticky");
+            }
+        }
+    </script>
 </body>
 </html>
