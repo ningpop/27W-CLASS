@@ -32,4 +32,4 @@ def submit(request):
     lecture.description = request.GET['content']
     lecture.created_at = timezone.datetime.now()
     lecture.save()
-    return redirect('/lecture/' + str(lecture.lecture_id))
+    return redirect('/lecture/' + str(lecture.id))
