@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="form-inline my-2 my-lg-0" style="margin-left:30%; width:30%;">
+                    <input class="form-control mr-sm-2" type="search" placeholder="배우고 싶은 것이 있나요?" aria-label="Search" style="width: 80%;">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">🔍</button>
+                </form>
+            </div>
+
+            <div>
+                {% if user.is_authenticated %}
+                <h5>Welcome, {{user.username}}</h5>
+                <a class="account" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="account" href="{%url 'login' %}">Login</a>
+                {%endif%}
+                | <a class="account" href="{%url 'contact_board' %}">문의하기</a>
+            </div>
+        </div>
+
+        {% block navbar %}
+        {% endblock %}
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="text-muted bg-dark pt-5 pb-5">
+        <div class="container">
+            <p class="mb-1 text-white">이십칠와트클래스 27WATT CLASS</p>
+            <p class="mb-1 text-white">상호명 : 이십칠와트</p>
+            <p class="mb-1 text-white">대표 : 김선웅 010-4713-6915</p>
+            <p class="mb-1 text-white">사업자등록번호 : 847-45-00467</p>
+            <p class="mb-1 text-white">62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p><br>
+            <p class="mb-1 text-white">Copyright 27WATT 2019 All rights reserved</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

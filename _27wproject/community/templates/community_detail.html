@@ -1,36 +1,47 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    {% load staticfiles %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
     <title>27W - 커뮤니티</title>
-</head>
-<body>
-    <header>
-        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
-    </header>
 
-    <h1>27 WATT CLASS - 커뮤니티 Detail Page</h1>
+    <style>
+        .nav-now, .nav-link:hover{
+            color: #ffA500 !important;
+        }
+        .account:link, .account:visited, .account:hover{
+            color: black;
+            text-decoration: none;
+        }
+        .banner{
+            text-align: center;
+            color:white;
+        }
+    </style>
+{% endblock %}
 
-    {% if user.is_authenticated %}
-    <h2> Welcome, {{user.username}} </h2>
-    <center><a href="{% url 'logout' %}">Logout</a></center>
-    {% else %}
-    <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}
-    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">홈</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link nav-now" href="{% url 'community_board' %}">커뮤니티<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
 
-    <nav>
-        <div>
-            <a href="{% url 'index' %}">홈</a>
-            <a href="{% url 'community_board' %}">커뮤니티</a>
-            <a href="{% url 'lecture_board' %}">강의</a>
-            <a href="{% url 'issue_board' %}">이슈</a>
-        </div>
-    </nav>
-
+{% block content %}
     <br><br>
     <hr style="border:solid 2px #e69900">
     
@@ -76,17 +87,4 @@
     </div>
 
     <br><br>
-    <hr>
-
-    <footer>
-        <div>
-            <p>이십칠와트클래스 27WATT CLASS</p>
-            <p>상호명 : 이십칠와트</p>
-            <p>대표 : 김선웅 010-4713-6915</p>
-            <p>사업자등록번호 : 847-45-00467</p>
-            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
-            <p>Copyright 27WATT 2019 All rights reserved</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock %}

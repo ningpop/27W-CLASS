@@ -61,7 +61,7 @@ ROOT_URLCONF = '_27wclass.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['_27wclass/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

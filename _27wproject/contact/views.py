@@ -14,3 +14,6 @@ def contact_board(request):
 
 def contact_create(request):
     return render(request, 'contact_create.html')
+
+def contact_detail(request):
+    return render(request, 'contact_detail.html')

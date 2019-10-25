@@ -65,28 +65,4 @@
     </div>
     <br>
 
-    {% if user.is_superuser %}
-    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'contact_create' %}">글쓰기</a></p>
-    {% endif %}
-
-    <hr>
-
-    <table width="100%">
-        <tr>
-            <th scope="col" class="num">글 번호</th>
-            <th scope="col" class="title">글 제목</th>
-            <th scope="col" class="date">작성일</th>
-            <th scope="col" class="who">작성자</th>
-        </tr>
-        
-        {% for contact in contact_list.all %}
-        <tr>
-            <td class="num"><h4>(글 번호)</h4></td>
-            <td class="title"><h4>{{ contact.title }}</h4></td>
-            <td class="date"><h4>{{ contact.created_at }}</h4></td>
-            <td class="who"><h4>{{ contact.user }}</h4></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <hr>
 {% endblock %}

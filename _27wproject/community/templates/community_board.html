@@ -1,33 +1,33 @@
-<!-- <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>27W - 문의하기</title>
-</head>
-<body>
-    <a href="{% url 'index' %}">홈</a>
-    <a href="{% url 'community_board' %}">커뮤니티</a>
-    <a href="{% url 'lecture_board' %}">강의</a>
-    <a href="{% url 'issue_board' %}">이슈</a>
-    <a href="{% url 'contact_create' %}">글쓰기</a>
-    <h1>27 WATT CLASS - 문의하기</h1>
-    <div>objs 받아와서 게시판 list 형태로 쭉 적어주도록</div>
-</body>
-</html> -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    {% load staticfiles %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>27W - 문의하기</title>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+    <title>27W - 커뮤니티</title>
 
     <style>
+        .nav-now, .nav-link:hover{
+            color: #ffA500 !important;
+        }
+        .account:link, .account:visited, .account:hover{
+            color: black;
+            text-decoration: none;
+        }
+        a, a:link, a:visited, a:hover{
+            text-decoration: none;
+            color:black;
+        }
         .banner{
             text-align: center;
+            color:white;
+        }
+        .category{
+            text-align: center;
+        }
+        .category-item{
+            text-align: center;
+            display:inline-block;
+            width:20%;
         }
         .num{
             width: 10%;
@@ -42,42 +42,62 @@
             width: 10%;
         }
     </style>
-</head>
-<body>
-    <header>
-        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
-    </header>
-    
-    <h1>27 WATT CLASS에 오신것을 환영합니다.</h1>
-    
-    {% if user.is_authenticated %}
-    <h2> Welcome, {{user.username}} </h2>
-    <center><a href="{% url 'logout' %}">Logout</a></center>
-    {% else %}
-    <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}
-    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+{% endblock %}
 
-    <hr>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">홈</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link nav-now" href="{% url 'community_board' %}">커뮤니티<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
 
-    <nav>
-        <div>
-            <a href="{% url 'index' %}">홈</a>
-            <a href="{% url 'community_board' %}">커뮤니티</a>
-            <a href="{% url 'lecture_board' %}">강의</a>
-            <a href="{% url 'issue_board' %}">이슈</a>
-        </div>
-    </nav>
-
-    <hr>
-
-    <div class="banner">
+{% block content %}
+    <div class="banner bg-dark">
+        <br>
         <h3>COMMUNITY</h3>
+        <br>
+    </div>
+    <br>
+
+    <div class="category">
+        <h4 style="text-align: center;">CATEGORY</h4><br>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/art.png' %}" style="width:20%; height:20%;"><br>
+                <p>예술</p>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/design.png' %}" style="width:20%; height:20%;"><br>
+                <p>디자인</p>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/social_media.png' %}" style="width:20%; height:20%;"><br>
+                <p>소셜미디어</p>
+            </a>
+        </div>
     </div>
 
-    <hr>
-
-    <p style="text-align: right;"><a href="{% url 'community_create' %}">글쓰기</a></p>
+    {% if user.is_superuser %}
+    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'community_create' %}">글쓰기</a></p>
+    {% endif %}
 
     <hr>
 
@@ -100,16 +120,4 @@
     </table>    
 
     <hr>
-
-    <footer>
-        <div>
-            <p>이십칠와트클래스 27WATT CLASS</p>
-            <p>상호명 : 이십칠와트</p>
-            <p>대표 : 김선웅 010-4713-6915</p>
-            <p>사업자등록번호 : 847-45-00467</p>
-            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
-            <p>Copyright 27WATT 2019 All rights reserved</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock %}
