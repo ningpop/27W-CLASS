@@ -7,12 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>27W - 강의</title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <style>
-        .lecture_board{
-            text-align: center;
+        .nav-link:hover{
+            color: #ffA500 !important;
         }
-        .more{
-            text-align: right;
+        .account:link, .account:visited, .account:hover{
+            color: black;
+            text-decoration: none;
+        }
+        a, a:link, a:visited, a:hover{
+            text-decoration: none;
+            color:black;
+        }
+        .card{
+            text-align: center;
+            margin-right: 5%;
+            margin-left: 5%;
         }
         ul{
             list-style: none;
@@ -23,78 +35,136 @@
         }
         .banner{
             text-align: center;
+            background-color: dimgray;
+            color:white;
+        }
+        .category{
+            text-align: center;
+        }
+        .category-item{
+            text-align: center;
+            display:inline-block;
+            width:20%;
+        }
+        .board{
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+        <div class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="form-inline my-2 my-lg-0" style="margin-left:30%; width:30%;">
+                    <input class="form-control mr-sm-2" type="search" placeholder="배우고 싶은 것이 있나요?" aria-label="Search" style="width: 80%;">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">🔍</button>
+                </form>
+            </div>
+
+            <div>
+                {% if user.is_authenticated %}
+                <h5>Welcome, {{user.username}}</h5>
+                <a class="account" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="account" href="{%url 'login' %}">Login</a>
+                {%endif%}
+                | <a class="account" href="{%url 'contact_board' %}">문의하기</a>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" style="color: #ffA500;" href="{% url 'index' %}">홈<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'community_board' %}">커뮤니티</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <h1>27 WATT CLASS - 강의</h1>
-
-    {% if user.is_authenticated %}
-    <h2> Welcome, {{user.username}} </h2>
-    <center><a href="{% url 'logout' %}">Logout</a></center>
-    {% else %}
-    <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}
-    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
-
-    <hr>
-
-    <nav>
-        <div>
-            <a href="{% url 'index' %}">홈</a>
-            <a href="{% url 'community_board' %}">커뮤니티</a>
-            <a href="{% url 'lecture_board' %}">강의</a>
-            <a href="{% url 'issue_board' %}">이슈</a>
-        </div>
-    </nav>
-
-    <hr>
-
-    <p style="text-align: right;">
-        <a href="{% url 'lecture_create' %}">글쓰기</a>
-    </p>
-
-    <div>
-        <ul>
-            <li><a href="">예술</a></li>
-            <li><a href="">디자인</a></li>
-            <li><a href="">소셜미디어</a></li>
-        </ul>
+    <div class="banner">
+        <br>
+        <h3>LECTURE</h3>
+        <br>
     </div>
 
-    <hr>
+    <br>
 
-    <div class="banner">
-        <h3>ONLINE LECTURE</h3>
+    <div class="category">
+        <h4 style="text-align: center;">CATEGORY</h4><br>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/art.png' %}" style="width:20%; height:20%;"><br>
+                <p>예술</p>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/design.png' %}" style="width:20%; height:20%;"><br>
+                <p>디자인</p>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/social_media.png' %}" style="width:20%; height:20%;"><br>
+                <p>소셜미디어</p>
+            </a>
+        </div>
     </div>
     
-    {% for lecture in lecture_list.all %}
-    <div class="lecture_board">
-        <div>
-            <h4>{{ lecture.title }}</h4>
-            <img src="{{ lecture.image.url }}">
-            <p>{{ lecture.description }}</p>
-            <p>{{ lecture.tutor }}</p>
-            <!-- <p class="more"><a href="{# url 'lecture_detail' #}">더보기</a></p> -->
-            <p class="more"><a href="{% url 'lecture_detail' lecture.id %}">더보기</a></p>
-        </div>
-    </div>
-    {% endfor %}
+    {% if user.is_superuser %}
+    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'lecture_create' %}">글쓰기</a></p>
+    {% endif %}
 
     <hr>
 
-    <footer>
-        <div>
-            <p>이십칠와트클래스 27WATT CLASS</p>
-            <p>상호명 : 이십칠와트</p>
-            <p>대표 : 김선웅 010-4713-6915</p>
-            <p>사업자등록번호 : 847-45-00467</p>
-            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
-            <p>Copyright 27WATT 2019 All rights reserved</p>
+    <h4 style="text-align: center;">ONLINE</h4>
+    <h4 style="text-align: center;">LECTURE</h4>
+
+    <hr>
+    
+    <div class="board">
+        {% for lecture in lecture_list.all %}
+        {% if forloop.counter0|divisibleby:3 %}
+        <br><br><br>
+        {% endif %}
+        <div class="card" style="width: 18rem; display:inline-block;">
+            <img src="{{ lecture.image.url }}" class="card-img-top" alt="lecture_image">
+            <div class="card-body">
+                <h5 class="card-title">{{ lecture.title }}</h5>
+                <p class="card-text">{{ lecture.description }}</p>
+                <p class="card-text">{{ lecture.tutor }}</p>
+                <a href="{% url 'lecture_detail' lecture.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <br>
+
+    <footer class="text-muted bg-dark pt-5 pb-5">
+        <div class="container">
+            <p class="mb-1 text-white">이십칠와트클래스 27WATT CLASS</p>
+            <p class="mb-1 text-white">상호명 : 이십칠와트</p>
+            <p class="mb-1 text-white">대표 : 김선웅 010-4713-6915</p>
+            <p class="mb-1 text-white">사업자등록번호 : 847-45-00467</p>
+            <p class="mb-1 text-white">62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p><br>
+            <p class="mb-1 text-white">Copyright 27WATT 2019 All rights reserved</p>
         </div>
     </footer>
 </body>

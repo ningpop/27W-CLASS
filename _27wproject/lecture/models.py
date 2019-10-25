@@ -12,13 +12,16 @@ class Lecture(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     price = models.CharField(max_length=100)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='lecture_images/')
     tutor = models.CharField(max_length=50)
     # many to one field
     students = models.ForeignKey(User, on_delete=models.CASCADE, related_name="students", null=True, blank=True)
     deadline = models.CharField(max_length=100)
     created_at = models.DateField(auto_now=True)
-    category = models.CharField(max_length=20, choices=LECTURE_CATEGORY, default='Art') # make category
+    category = models.CharField(max_length=20, choices=LECTURE_CATEGORY, default='None') # make category
+
+    def __str__(self):
+        return self.title
 
 
 class Review(models.Model):
