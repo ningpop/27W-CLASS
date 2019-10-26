@@ -13,7 +13,7 @@ LECTURE_CATEGORY = [
 class Lecture(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    price = models.CharField(max_length=100)
+    price = models.IntegerField()
     image = models.ImageField(upload_to='lecture_images/')
     tutor = models.CharField(max_length=50)
     # many to one field
@@ -32,8 +32,18 @@ class Lecture(models.Model):
 
 
 class Review(models.Model):
-    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, null=True, blank=True)
+    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, null=True, blank=True, related_name='review')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True) # many to one field.
     text = models.TextField()
     score = models.IntegerField()
     created_at = models.DateField(auto_now=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text

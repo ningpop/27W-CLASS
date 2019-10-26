@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Lecture
+from .models import Lecture, Review
 from django.utils import timezone
 # Create your views here.
 
@@ -29,6 +29,7 @@ def submit(request):
     lecture.category = request.POST['category']
     lecture.title = request.POST['title']
     lecture.image = request.FILES['image']
+    lecture.price = request.POST['price']
     lecture.description = request.POST['content']
     lecture.created_at = timezone.datetime.now()
     lecture.save()
@@ -38,3 +39,15 @@ def lecture_delete(request, lecture_id):
     lecture = get_object_or_404(Lecture, pk=lecture_id)
     lecture.delete()
     return redirect('/lecture/')
+
+def review(request):
+    if request.method == 'POST':
+        review = Review()
+        review.text = request.POST['text']
+        review.score = request.POST['score']
+        review.lecture = Lecture.objects.get(pk=request.POST['lecture']) # id로 객체 가져오기        
+        review.user = request.user
+        review.save()
+        return redirect('/lecture/'+ str(review.lecture.id))
+    else :
+        return redirect('home')

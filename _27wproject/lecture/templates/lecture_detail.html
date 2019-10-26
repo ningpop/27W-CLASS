@@ -83,8 +83,7 @@
             <li><a href="#curriculum">커리큘럼</a></li>
             <li><a href="#benefit">패키지 혜택</a></li>
             <li><a href="#creater">크리에이터</a></li>
-            <li><a href="">커뮤니티 00개</a></li>
-            <li><a href="">추천</a></li>
+            <li><a href="#review">추천 및 후기 {{ lecture.review.count }}개</a></li>
             <li><a href="#refund">환불정책</a></li>
         </ul>
         <hr>
@@ -135,44 +134,37 @@
         </div>
     
         <hr>
-        
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
+        <div id="review" class="content">
+            <h3>추천 및 후기 총 {{ lecture.review.count }}개</h3>
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'review' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{lecture.id}}" name="lecture">
+                댓글 작성 : <input type="text" name="text"><br>
+                별점: <input type="number" name="score" style="width: 10%;">
+                <button type="submit" class="btn btn-secondary">작성</button>
+            </form>
+            {%endif%}
+            <br>
+
+            {% for review in lecture.review.all %}
+            <hr>
+            <div class="review">
+                <strong>{{ review.user }}</strong>
+                <div class="date">{{ review.created_at }}</div>
+                <p>( 별점: {{ review.score }}점 ) {{ review.text|linebreaks }}</p>
+            </div>
+            {% empty %}
+            <p>No reviews here yet :(</p>
+            {% endfor %}
+        </div>
+
         <hr>
+
         <div id="refund">
             <h4>환불정책</h4>
             <p>환불이 불가합니다. 그냥 들으세요. 어쩔 수 없습니다. 다음부터는 신중하게 구매하세요.</p>
         </div>
     </div>
-
-    <hr>
 {% endblock %}
