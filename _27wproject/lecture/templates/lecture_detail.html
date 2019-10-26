@@ -13,8 +13,9 @@
             color: black;
             text-decoration: none;
         }
-        a{
+        a, a:link, a:visited, a:hover{
             text-decoration: none;
+            color:black;
         }
         ul{
             list-style: none;
@@ -28,9 +29,25 @@
         }
         #navber{
             overflow: hidden;
+            margin-left: 3%;
         }
         .content {
             padding-top: 10px;
+        }
+        .total-content{
+            margin-left: 3%;
+            margin-right: 35%;
+        }
+        #side-menu{
+            position: fixed;
+            top: 30%;
+            right: 5%;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            padding-left: 2%;
+            padding-right: 15%;
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
         }
     </style>
 {% endblock %}
@@ -64,26 +81,27 @@
     </div>
     <br>
 
+<div class="total-content">
     <div>
-        <h2>강의 소개</h2>
-        <img src="{{ lecture.image.url }}">
+        <h2>강의 소개</h2><br>
+        <img src="{{ lecture.image.url }}" style="max-width: 100%;">
     </div>
 
-    <div style="position: fixed; top: 60%; right: 20%;">
-        <p>강의명: {{ lecture.title }}</p>
-        <p>가격: {{ lecture.price }}</p>
-        <p>Like: (좋아요 수)</p>
-        <button><a href="{% url 'confirm_order' %}">클래스 참여</a></button>
+    <div id="side-menu">
+        <h3>강의명: {{ lecture.title }}</h3>
+        <h5>가격: {{ lecture.price }}</h5>
+        <h6>Like: (좋아요 수)</h6>
+        <a href="{% url 'confirm_order' %}" class="btn btn-warning">클래스 참여</a>
     </div>
 
     <div id="navbar">
         <hr>
         <ul>
-            <li><a href="#info">클래스 소개</a></li>
-            <li><a href="#curriculum">커리큘럼</a></li>
-            <li><a href="#benefit">패키지 혜택</a></li>
-            <li><a href="#creater">크리에이터</a></li>
-            <li><a href="#review">추천 및 후기 {{ lecture.review.count }}개</a></li>
+            <li><a href="#info">클래스 소개</a></li> | 
+            <li><a href="#curriculum">커리큘럼</a></li> | 
+            <li><a href="#benefit">패키지 혜택</a></li> | 
+            <li><a href="#creater">크리에이터</a></li> | 
+            <li><a href="#review">추천 및 후기 {{ lecture.review.count }}개</a></li> | 
             <li><a href="#refund">환불정책</a></li>
         </ul>
         <hr>
@@ -163,8 +181,9 @@
         <hr>
 
         <div id="refund">
-            <h4>환불정책</h4>
+            <h4>환불정책</h4><br>
             <p>환불이 불가합니다. 그냥 들으세요. 어쩔 수 없습니다. 다음부터는 신중하게 구매하세요.</p>
         </div>
     </div>
+</div>
 {% endblock %}

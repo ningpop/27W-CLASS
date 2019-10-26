@@ -29,7 +29,7 @@ def lecture_detail(request, lecture_id):
 def lecture_create(request):
     return render(request, 'lecture_create.html')
 
-def submit(request):
+def lecture_submit(request):
     lecture = Lecture()
     lecture.category = request.POST['category']
     lecture.title = request.POST['title']

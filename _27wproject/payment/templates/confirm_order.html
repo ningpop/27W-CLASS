@@ -1,82 +1,91 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    {% load staticfiles %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>27W - 수강신청 확인</title>
+{% extends 'base.html' %}
 
-    <style>
-        a{
-            text-decoration: none;
-        }
-        .pay{
-            text-align: right;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <a href="{% url 'index' %}"><img src="{% static '27watt_class.png' %}" alt=""></a>
-    </header>
-    
-    <h1>27 WATT CLASS - 수강신청 확인</h1>
+{% load staticfiles %}
 
-    {% if user.is_authenticated %}
-    <h2> Welcome, {{user.username}} </h2>
-    <center><a href="{% url 'logout' %}">Logout</a></center>
-    {% else %}
-    <center><a href="{%url 'login' %}">  Login</a></center>
-    {%endif%}
-    <center><a href="{%url 'contact_board' %}">문의하기</a></center>
+{% block head %}
+<title>27W - 수강신청 확인</title>
 
-    <hr>
+<style>
+    .nav-now, .nav-link:hover{
+        color: #ffA500 !important;
+    }
+    .account:link, .account:visited, .account:hover{
+        color: black;
+        text-decoration: none;
+    }
+    a, a:link, a:visited, a:hover{
+        text-decoration: none;
+    }
+    .banner{
+        text-align: center;
+        color:white;
+    }
+    .confirm{
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+    .pay{
+        text-align: right;
+    }
+</style>
+{% endblock %}
 
-    <nav>
-        <div>
-            <a href="{% url 'index' %}">홈</a>
-            <a href="{% url 'community_board' %}">커뮤니티</a>
-            <a href="{% url 'lecture_board' %}">강의</a>
-            <a href="{% url 'issue_board' %}">이슈</a>
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'community_board' %}">커뮤니티</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link nav-now" href="{% url 'lecture_board' %}">강의<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+                </li>
+            </ul>
         </div>
     </nav>
+{% endblock %}
 
-    <hr>
+{% block content %}
+    <div class="banner bg-dark">
+        <br>
+        <h3>LECTURE</h3>
+        <br>
+    </div>
+    <br>
 
-    <div>
-        <h3>수강신청 확인</h3>
+    <div style="text-align: center;">
+        <h3>수강 신청 확인</h3>
+    </div>
+
+    <div class="confirm">
         <div>
             <img src="">
         </div>
         <div>
-            <h4>(클래스명)</h4>
-            <p>(클래스 수강 기간)</p>
-            <p>(간단한 소개(?))</p>
+            <h3>(클래스명)</h3>
+            <br>
+            <h5>(클래스 수강 기간)</h5>
+            <br>
+            <h6>(간단한 소개(?))</h6>
         </div>
+        <br>
+
         <div>
             <div>
-                <p>금액</p>
+                <h4>금액</h4>
                 <p>(~~원)</p>
             </div>
             <div class="pay">
-                <button><a href="{% url 'payment' %}">결제하기</a></button>
-                <button><a href="">삭제</a></button>
+                <a href="{% url 'payment' %}" class="btn btn-warning">결제하기</a>
+                <a href="" class="btn btn-danger">삭제</a>
             </div>
         </div>
     </div>
-
-    <hr>
-
-    <footer>
-        <div>
-            <p>이십칠와트클래스 27WATT CLASS</p>
-            <p>상호명 : 이십칠와트</p>
-            <p>대표 : 김선웅 010-4713-6915</p>
-            <p>사업자등록번호 : 847-45-00467</p>
-            <p>62, Sinchon-ro 3-gil, Seodaemun-go, Seoul, Republic of Korea</p>
-            <p>Copyright 27WATT 2019 All rights reserved</p>
-        </div>
-    </footer>
-</body>
-</html>
+    <br>
+{% endblock %}

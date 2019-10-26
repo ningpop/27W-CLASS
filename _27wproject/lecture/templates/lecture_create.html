@@ -68,7 +68,7 @@
         </div>
         <br>
 
-        <form class="lecture_form" action="{% url 'submit' %}" method="post" enctype="multipart/form-data">
+        <form class="lecture_form" action="{% url 'lecture_submit' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <p>
                 카테고리: 
