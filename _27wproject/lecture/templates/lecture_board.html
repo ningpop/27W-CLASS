@@ -122,6 +122,7 @@
                 <p class="card-text">{{ lecture.description }}</p>
                 <p class="card-text">{{ lecture.tutor }}</p>
                 <a href="{% url 'lecture_detail' lecture.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
+                <a href="{% url 'lecture_delete' lecture.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
             </div>
         </div>
         {% endfor %}

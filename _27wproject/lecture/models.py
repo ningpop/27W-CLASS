@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
+from django.conf import settings
 # Create your models here.
 
 LECTURE_CATEGORY = [

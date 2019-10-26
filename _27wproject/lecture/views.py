@@ -33,3 +33,8 @@ def submit(request):
     lecture.created_at = timezone.datetime.now()
     lecture.save()
     return redirect('/lecture/' + str(lecture.id))
+
+def lecture_delete(request, lecture_id):
+    lecture = get_object_or_404(Lecture, pk=lecture_id)
+    lecture.delete()
+    return redirect('/lecture/')
