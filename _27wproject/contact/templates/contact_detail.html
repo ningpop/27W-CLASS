@@ -33,6 +33,9 @@
         .who{
             width: 10%;
         }
+        .content{
+            margin-left: 5%;
+        }
     </style>
 {% endblock %}
 
@@ -65,13 +68,38 @@
     </div>
     <br>
 
-    <div style="text-align: center;">
+    <div style="margin-left:5%;">
         <h4>제목: {{ contact.title }}</h4>
         <p>내용: {{ contact.text }}</p>
-        <button type="button"><a href="{% url 'contact_board' %}">목록</a></button>
+        <br><br>
+        <a href="{% url 'contact_board' %}" class="btn btn-outline-success btn-sm">목록</a>
         {% if user.is_superuser %}
         <a href="{% url 'contact_delete' contact.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
         {% endif %}
+        <br>
+        <hr>
     </div>
-    <br>
+
+    <div id="answer" class="content">
+        {% if user.is_superuser %}
+        <form method="POST" action="{% url 'answer' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{ contact.id }}" name="contact">
+            답변 작성 : <input type="text" name="text">
+            <button type="submit" class="btn btn-warning btn-sm">작성하기</button>
+        </form>
+        {%endif%}
+        <br>
+
+        {% for answer in contact.answer.all %}
+        <hr>
+        <div class="answer">
+            <strong>{{ answer.admin }}</strong>
+            <div class="date">{{ answer.created_at }}</div>
+            <p>{{ answer.text|linebreaks }}</p>
+        </div>
+        {% empty %}
+        <p>No answer here yet :(</p>
+        {% endfor %}
+    </div>
 {% endblock %}

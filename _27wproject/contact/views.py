@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Contact
+from .models import Contact, Answer
 from django.utils import timezone
 from django.core.paginator import Paginator
 
@@ -37,3 +37,14 @@ def contact_delete(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id)
     contact.delete()
     return redirect('/contact/')
+
+def answer(request):
+    if request.method == 'POST':
+        answer = Answer()
+        answer.text = request.POST['text']
+        answer.contact = Contact.objects.get(pk=request.POST['contact']) # id로 객체 가져오기        
+        answer.admin = request.user
+        answer.save()
+        return redirect('/contact/'+ str(answer.contact.id))
+    else :
+        return redirect('home')
