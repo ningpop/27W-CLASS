@@ -65,4 +65,13 @@
     </div>
     <br>
 
+    <div style="text-align: center;">
+        <h4>제목: {{ contact.title }}</h4>
+        <p>내용: {{ contact.text }}</p>
+        <button type="button"><a href="{% url 'contact_board' %}">목록</a></button>
+        {% if user.is_superuser %}
+        <a href="{% url 'contact_delete' contact.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
+        {% endif %}
+    </div>
+    <br>
 {% endblock %}

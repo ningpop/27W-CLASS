@@ -19,6 +19,8 @@ from . import views
 
 urlpatterns = [
     path('', views.contact_board, name = 'contact_board'),
+    path('<int:contact_id>/', views.contact_detail, name = 'contact_detail'),
     path('create/', views.contact_create, name = 'contact_create'),
-    path('contact_detail', views.contact_detail, name = 'contact_detail'),
+    path('submit/', views.submit, name = 'submit'),
+    path('delete/<int:contact_id>/', views.contact_delete, name = 'contact_delete'),
 ]

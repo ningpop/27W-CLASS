@@ -33,6 +33,9 @@
         .who{
             width: 10%;
         }
+        .board{
+            text-align: center;
+        }
     </style>
 {% endblock %}
 
@@ -71,22 +74,39 @@
 
     <hr>
 
-    <table width="100%">
-        <tr>
-            <th scope="col" class="num">글 번호</th>
-            <th scope="col" class="title">글 제목</th>
-            <th scope="col" class="date">작성일</th>
-            <th scope="col" class="who">작성자</th>
-        </tr>
-        
-        {% for contact in contact_list.all %}
-        <tr>
-            <td class="num"><h4>(글 번호)</h4></td>
-            <td class="title"><h4>{{ contact.title }}</h4></td>
-            <td class="date"><h4>{{ contact.created_at }}</h4></td>
-            <td class="who"><h4>{{ contact.user }}</h4></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <hr>
+    <div class="board">
+        <table width="100%">
+            <tr>
+                <th scope="col" class="num">글 번호</th>
+                <th scope="col" class="title">글 제목</th>
+                <th scope="col" class="date">작성일</th>
+                <th scope="col" class="who">작성자</th>
+            </tr>
+            
+            {% for contact in posts %}
+            <tr>
+                <td class="num"><p>{{ contact.id }}</p></td>
+                <td class="title"><a href="{% url 'contact_detail' contact.id %}"><p>{{ contact.title }}</p></a></td>
+                <td class="date"><p>{{ contact.created_at }}</p></td>
+                <td class="who"><p>{{ contact.user }}</p></td>
+            </tr>
+            {% endfor %}
+        </table>
+    
+        <br><br>
+        {%if posts.has_previous%}
+        <a href="?page=1" class="btn btn-outline-secondary btn-sm">First</a>
+        <a href="?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm">Previous</a>
+        {%endif%}
+    
+        <span> {{posts.number}}</span>
+        <span> of </span>
+        <span>{{posts.paginator.num_pages}} </span>
+    
+        {%if posts.has_next%}
+        <a href="?page={{posts.next_page_number}}" class="btn btn-outline-secondary btn-sm">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}" class="btn btn-outline-secondary btn-sm">Last</a>
+        {%endif%}
+        <br><br>
+    </div>
 {% endblock %}

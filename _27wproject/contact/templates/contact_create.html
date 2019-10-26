@@ -55,12 +55,12 @@
         </div>
         <br>
 
-        <p>제목: <input type="text" placeholder="제목을 입력하세요. " name="subject"/></p>
-
-        <p>내용: </p>
-        <textarea cols="100" rols="100" placeholder="내용을 입력하세요. " name="content"></textarea>
-    
-        <button type="button" class="btn btn-outline-dark">등록하기</button>
+        <form class="contact_form" action="{% url 'submit' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>제목: <input type="text" placeholder="제목을 입력하세요." name="title" size="74"/></p>
+            <p>내용: <textarea cols="68" rows="10" placeholder="내용을 입력하세요." name="content"></textarea></p>
+            <button type="submit" class="btn btn-outline-dark">저장</button>
+            <button type="button" class="btn btn-outline-dark"><a href="{% url 'contact_board' %}">목록</a></button>
     </div>
     <br>
 {% endblock %}
