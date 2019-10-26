@@ -68,7 +68,8 @@
         </div>
         <br>
 
-        <form class="lecture_form" action="{% url 'submit' %}">
+        <form class="lecture_form" action="{% url 'submit' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
             <p>
                 카테고리: 
                 <select name="category" style="width: 39%;">

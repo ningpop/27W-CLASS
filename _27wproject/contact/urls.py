@@ -18,7 +18,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('contact_board', views.contact_board, name = 'contact_board'),
-    path('contact_create', views.contact_create, name = 'contact_create'),
+    path('', views.contact_board, name = 'contact_board'),
+    path('create/', views.contact_create, name = 'contact_create'),
     path('contact_detail', views.contact_detail, name = 'contact_detail'),
 ]

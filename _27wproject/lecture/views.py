@@ -26,10 +26,10 @@ def lecture_create(request):
 
 def submit(request):
     lecture = Lecture()
-    lecture.category = request.GET['category']
-    lecture.title = request.GET['title']
-    lecture.image = request.GET['image']
-    lecture.description = request.GET['content']
+    lecture.category = request.POST['category']
+    lecture.title = request.POST['title']
+    lecture.image = request.FILES['image']
+    lecture.description = request.POST['content']
     lecture.created_at = timezone.datetime.now()
     lecture.save()
     return redirect('/lecture/' + str(lecture.id))

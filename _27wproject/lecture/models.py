@@ -22,6 +22,11 @@ class Lecture(models.Model):
 
     def __str__(self):
         return self.title
+        
+    # delete 오버라이딩
+    def delete(self, *args, **kargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
+        super(Lecture, self).delete(*args, **kargs) # 원래의 delete 함수를 실행
 
 
 class Review(models.Model):

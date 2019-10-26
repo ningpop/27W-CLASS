@@ -25,15 +25,4 @@ urlpatterns = [
     path('<int:lecture_id>/', views.lecture_detail, name = 'lecture_detail'),
     path('create/', views.lecture_create, name = 'lecture_create'),
     path('submit/', views.submit, name = 'submit'),
-    #path('detail/<int:lecture_id>/', views.lecture_detail, name = 'lecture_detail'),
-    
-    #path('create/', views.create, name = 'create'),
-
-    #path('community_board/', .views.community_board, name = 'community_board'),
-    
-    #path('contact/contact_board', contact.views.contact_board, name = 'contact_board'),
-    
-    #path('issue/issue_board', issue.views.issue_board, name = 'issue_board'),
-    
-    #path('lecture/lecture_board', lecture.views.lecture_board, name = 'lecture_board'),
 ]
