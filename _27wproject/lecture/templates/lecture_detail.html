@@ -88,10 +88,11 @@
     </div>
 
     <div id="side-menu">
+        {% load humanize %}
         <h3>강의명: {{ lecture.title }}</h3>
-        <h5>가격: {{ lecture.price }}</h5>
+        <h5>가격: {{ lecture.price|intcomma }}원</h5>
         <h6>Like: (좋아요 수)</h6>
-        <a href="{% url 'confirm_order' %}" class="btn btn-warning">클래스 참여</a>
+        <a href="{% url 'confirm_order' lecture.id %}" class="btn btn-warning">클래스 참여</a>
     </div>
 
     <div id="navbar">

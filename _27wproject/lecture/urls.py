@@ -27,4 +27,6 @@ urlpatterns = [
     path('submit/', views.lecture_submit, name = 'lecture_submit'),
     path('delete/<int:lecture_id>/', views.lecture_delete, name = 'lecture_delete'),
     path('review/',views.review, name="review"),
+    path('<int:lecture_id>/confirm_order/', views.confirm_order, name = 'confirm_order'),
+    path('<int:lecture_id>/payment/', views.payment, name = 'payment'),
 ]

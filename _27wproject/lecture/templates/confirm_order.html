@@ -3,31 +3,31 @@
 {% load staticfiles %}
 
 {% block head %}
-    <title>27W - 결제</title>
+<title>27W - 수강신청 확인</title>
 
-    <style>
-        .nav-now, .nav-link:hover{
-            color: #ffA500 !important;
-        }
-        .account:link, .account:visited, .account:hover{
-            color: black;
-            text-decoration: none;
-        }
-        a, a:link, a:visited, a:hover{
-            text-decoration: none;
-        }
-        .banner{
-            text-align: center;
-            color:white;
-        }
-        .confirm{
-            margin-left: 30%;
-            margin-right: 30%;
-        }
-        .pay{
-            text-align: right;
-        }
-    </style>
+<style>
+    .nav-now, .nav-link:hover{
+        color: #ffA500 !important;
+    }
+    .account:link, .account:visited, .account:hover{
+        color: black;
+        text-decoration: none;
+    }
+    a, a:link, a:visited, a:hover{
+        text-decoration: none;
+    }
+    .banner{
+        text-align: center;
+        color:white;
+    }
+    .confirm{
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+    .pay{
+        text-align: right;
+    }
+</style>
 {% endblock %}
 
 {% block navbar %}
@@ -60,28 +60,32 @@
     <br>
 
     <div style="text-align: center;">
-        <h3>결제하기</h3>
+        <h3>수강 신청 확인</h3>
     </div>
 
     <div class="confirm">
         <div>
-            <h3>(클래스 정보)</h3>
             <img src="">
-            <h5>(클래스 소개 글)</h5>
+        </div>
+        <div>
+            <h3>{{ lecture.title }}</h3>
+            <br>
+            <h5>(클래스 수강 기간)</h5>
+            <br>
+            <h6>{{ lecture.description }}</h6>
         </div>
         <br>
-        <div class="pay">
-            <h4>결제 금액</h4>
-            <p>클래스 가격</p><p>(~~원)</p>
-            <p>할인 금액</p><p>(~~원)</p>
-            <a href="" target="_blank">쿠폰 변경하기</a>
-            <br><br>
-            <h4>최종 가격</h4><p>(~~원)</p>
-            <br>
-        </div>
-        <div class="pay">
-            <a href="" class="btn btn-warning">카드 결제</a>
-            <a href="" class="btn btn-warning">무통장 입금</a>
+
+        <div>
+            <div>
+                {% load humanize %}
+                <h4>금액</h4>
+                <p>{{ lecture.price|intcomma }}원</p>
+            </div>
+            <div class="pay">
+                <a href="{% url 'payment' lecture.id %}" class="btn btn-warning">결제하기</a>
+                <a href="" class="btn btn-danger">삭제</a>
+            </div>
         </div>
     </div>
     <br>

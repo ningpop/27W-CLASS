@@ -43,7 +43,6 @@ urlpatterns = [
     #path('contact/create', contact.views.create, name = 'create'),
     path('contact/',include('contact.urls')),
     path('issue/',include('issue.urls')),
-    path('payment/', include('payment.urls')),
     #path('issue/issue_board', issue.views.issue_board, name = 'issue_board'),
     
     # path('lecture/lecture_board', lecture.views.lecture_board, name = 'lecture_board'),

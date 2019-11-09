@@ -56,3 +56,14 @@ def review(request):
         return redirect('/lecture/'+ str(review.lecture.id))
     else :
         return redirect('home')
+
+
+# payment
+
+def confirm_order(request, lecture_id):
+    lecture_confirm = get_object_or_404(Lecture, pk=lecture_id)
+    return render(request, 'confirm_order.html', {'lecture': lecture_confirm})
+
+def payment(request, lecture_id):
+    lecture_payment = get_object_or_404(Lecture, pk=lecture_id)
+    return render(request, 'payment.html', {'lecture': lecture_payment})
