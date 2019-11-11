@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block head %}
-    <script src="issuedetail.js"></script>
+    <script  src="issuedetail.js"></script>
     <title>27W - 이슈</title>
     <style>
         .nav-now, .nav-link:hover{
@@ -54,39 +54,37 @@
     <br>
 
     <div style="text-align: center;">
-        <a href="issue_detail.html"><h3>새 이슈 등록</h3></a>
+        <h3>새 이슈 등록</h3>
     </div>
     <br>
 
-    <h3>{{ issue.title }}</h3>
-    <div class="card" style="width: 18rem;">
-        <div class="card-header">
-            <span> <a href="{% url 'accounts:people' post.user.username %}">{{ post.user.username }} </a></span>
-        </div>
-        {% for image in post.image_set.all %}
-            <img src="{{ image.file.url }}" class="card-img-top" alt="{{ image.file.image }}">
-        {% endfor %}
-    <h5>{{ issue.text }}</h5>
-    <br>
-    <a href="issue_board.html"><button type="button" class="btn btn-outline-dark">목록</button></a>
-    <br><br><br><br>
-
-
-    <hr><br>
-    <tbody>
-        <h3>Comment</h3>
-            <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
-                <tr>
-                    <th>제목: </th>
-                    <td><input type="text" placeholder="제목을 입력하세요. " name="subject"/><br></td>
-                </tr>
-                
-                <tr>
-                    <th>내용: </th>
-                    <td><textarea cols="50" rows="5" placeholder="내용을 입력하세요. " name="content"></textarea><br></td>
-                </tr>
-                <button type="button" class="btn btn-outline-dark">등록하기</button>
-            </form>
+    <tbody style="text-align: center;">
+        <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
+            <tr>
+                <th>제목: </th>
+                <td><input type="text" placeholder="제목을 입력하세요. " name="subject"/><br></td>
+            </tr>
+            
+            <tr>
+                <th>내용: </th>
+                <td><textarea cols="100" rows="10" placeholder="내용을 입력하세요. " name="content"></textarea><br></td>
+            </tr>
+            
+        </form>
     </tbody>
-    <br>
+    <table>
+
+        <!--<input type="text" placeholder="제목을 입력하세요. " name="subject"/>-->
+        <!--파일 업로드를 이미지(jpeg, gif, png)로만 제한-->
+        <form method="post" action="..." enctype="multipart/form-data">
+        <label for="image">Photo: </label>
+        <input type = "file"accept = "image /*"name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">
+        <!--이미지파일 업로드시 미리보기-->
+        <div id='View_area' style='position:relative; width: 100px; height: 100px; color: black; border: 0px solid black; display: inline; '></div>
+        </form>
+        <button type="button" class="btn btn-outline-dark">등록하기</button>
+
+    </table>
+    
+    
 {% endblock %}

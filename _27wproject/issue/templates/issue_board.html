@@ -21,7 +21,7 @@
             margin-right: 5%;
             margin-left: 5%;
         }
-        .lecture_board{
+        .issue_board{
             text-align: center;
         }
         .more{
@@ -102,7 +102,40 @@
     </div>
     
     {% if user.is_superuser %}
-    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'issue_detail' %}">글쓰기</a></p>
+    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'issue_create' %}">글쓰기</a></p>
     {% endif %}
 
+    <div class="board">
+        {% for lecture in posts %}
+        {% if forloop.counter0|divisibleby:3 %}
+        <br><br><br>
+        {% endif %}
+        <div class="card" style="width: 18rem; display:inline-block;">
+            <img src="{{ issue.image.url }}" class="card-img-top" alt="issue_image">
+            <div class="card-body">
+                <h5 class="card-title">{{ lecture.title }}</h5>
+                <p class="card-text">{{ lecture.description }}</p>
+                <p class="card-text">{{ lecture.tutor }}</p>
+                <a href="{% url 'issue_detail' lecture.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
+                <a href="{% url 'issue_delete' lecture.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
+            </div>
+        </div>
+        {% endfor %}
+        <br><br>
+        {%if posts.has_previous%}
+        <a href="?page=1" class="btn btn-outline-secondary btn-sm">First</a>
+        <a href="?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm">Previous</a>
+        {%endif%}
+
+        <span> {{posts.number}}</span>
+        <span> of </span>
+        <span>{{posts.paginator.num_pages}} </span>
+
+        {%if posts.has_next%}
+        <a href="?page={{posts.next_page_number}}" class="btn btn-outline-secondary btn-sm">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}" class="btn btn-outline-secondary btn-sm">Last</a>
+        {%endif%}
+    </div>
+
+    <br>
 {% endblock %}
