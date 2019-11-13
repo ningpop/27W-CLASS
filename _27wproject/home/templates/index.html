@@ -13,6 +13,11 @@
             color: black;
             text-decoration: none;
         }
+        .card{
+            text-align: center;
+            margin-right: 5%;
+            margin-left: 5%;
+        }
         .bd-example{
             background-color: gray;
         }
@@ -26,7 +31,7 @@
         ul li{
             display: inline;
         }
-        .banner{
+        .banner, .board{
             text-align: center;
         }
     </style>
@@ -92,12 +97,11 @@
 <div class="banner">
     <h3>COMMUNITY</h3>
 </div>
-<br>
 
 <div class="board">
-    {% for community in community_list.all %}
+    {% for community in community_list %}
     {% if forloop.counter0|divisibleby:3 %}
-    <br><br><br>
+    <br>
     {% endif %}
     <div class="card" style="width: 18rem; display:inline-block;">
         <div class="card-body">
@@ -115,10 +119,9 @@
 <div class="banner">
     <h3>ONLINE LECTURE</h3>
 </div>
-<br>
 
 <div class="board">
-    {% for lecture in lecture_list.all %}
+    {% for lecture in lecture_list %}
     {% if forloop.counter0|divisibleby:3 %}
     <br><br><br>
     {% endif %}
@@ -133,18 +136,18 @@
     </div>
     {% endfor %}
 </div>
+<br>
 
 <hr>
 
 <div class="banner">
     <h3>ISSUE</h3>
 </div>
-<br>
 
 <div class="board">
-    {% for issue in issue_list.all %}
+    {% for issue in issue_list %}
     {% if forloop.counter0|divisibleby:3 %}
-    <br><br><br>
+    <br>
     {% endif %}
     <div class="card" style="width: 18rem; display:inline-block;">
         <img src="{{ issue.image.url }}" class="card-img-top" alt="issue_image">

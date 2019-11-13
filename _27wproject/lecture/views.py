@@ -10,12 +10,13 @@ def lecture_board(request):
 '''
 
 def lecture_board(request):
-    lectures = Lecture.objects
-    lecture_list = Lecture.objects.all()
+    #lectures = Lecture.objects
+    lecture_list = Lecture.objects.all().order_by('-id')
     paginator = Paginator(lecture_list, 12)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-    return render(request, 'lecture_board.html', {'lectures': lectures, 'posts': posts})
+    #return render(request, 'lecture_board.html', {'lectures': lectures, 'posts': posts})
+    return render(request, 'lecture_board.html', {'posts': posts})
 
 '''
 def lecture_detail(request):
