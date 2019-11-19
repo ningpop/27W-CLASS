@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views
+# django rest framework -> router -> url
 
 urlpatterns = [
-    path('', views.issue_board, name = 'issue_board'),
-    path('<int:issue_id>/', views.issue_detail, name = 'issue_detail'),
-    path('create/', views.issue_create, name = 'issue_create'),
+    path('', views.issues, name='issue_board'),
+    path('<int:issue_id>/', views.issue_detail, name='issue_detail'),
+    path('write/', views.write_issue, name='issue_write'),
+    path('comment/write', views.write_comment, name='comment_write'),
+    path('<int:issue_id>/update/', views.update_issue, name = 'issue_update'),
 ]

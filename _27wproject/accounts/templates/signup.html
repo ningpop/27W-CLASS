@@ -32,57 +32,49 @@
 <script>
         
     function check(re, what, message) {
-        //alert("test"+what.value);
         if(re.test(what.value)) {
             return true;
         }
         alert(message);
         what.value = "";
         what.focus();
-        //return false;
     }
-    function validateForSignUp(){
-        var re1 = /^[a-zA-Z0-9]{4,12}$/;
-        var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; 
+    function validateForSignUp(){        
+        var re1 = /^[a-zA-Z0-9]{4,12}$/;  
+        var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;   
         var id = document.getElementById('id');
         var password1 = document.getElementById("password1");
         var password2 = document.getElementById("password2");
         var email = document.getElementById("email");
         var phone = document.getElementById("phoneNumber");
-        var agree = document.getElementsByName("agree");
 
-        //alert("ffffffff");
-        //alert(id.value.match(/^[0-9]+$/));
-        //alert((/^[0-9]+$/).test(id.value));
+
         
-        if ((!check(re1,id,"아이디는 4~12자 영문 대소문자와 숫자로만 입력")) || (!check(re1,password1,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) || (!check(re2,email,"적합하지 않은 이메일 형식입니다.")) || (!check(re3,phone,"핸드폰 번호를 양식에 맞게 작성하세요."))) {
+        if ((!check(re1,id,"아이디는 4~12자 영문 대소문자와 숫자로만 입력")) || (!check(re1,password1,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) || (!check(re2,email,"적합하지 않은 이메일 형식입니다.")) ) {
             return false;
         }
-        //alert(password1.value==password2.value);
+        
         if (password1.value!=password2.value){
             alert("비밀번호 확인 오류. 다시 확인해주세요.");
             password2.value="";
             password2.focus();
             return false;
         }
+        //agreement;
 
-          //agreement;
+        var agreement = document.getElementById("chk1");
+        if (agreement.checked == false) {
+            alert("이용약관에 동의해주세요!")
+            return false;
+        } 
 
-
-
-        if (formValid == true) {
-
-        document.getElementById("form1").method = "POST";
-        document.getElementById("form1").action = "{% url 'signup' %}";
-        alert("가입이 완료되었습니다.");
-
-        }
-        else return false;
-
-
-
+        
+        document.getElementById("form").method = "POST";
+        document.getElementById("form").action = "{% url 'signup' %}";
+        alert("가입이 완료되었습니다."); 
     }
-    
+
+ 
     </script>
 
     <style>
@@ -127,7 +119,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form method="POST" action="{% url 'signup'%}"  class="login100-form validate-form">
+				<form name ='signup' id = "form" method="POST" action="{% url 'signup'%}"  class="login100-form validate-form" onsubmit="return validateForSignUp()">
                         {% csrf_token %}
 					<span class="login100-form-title p-b-26">
 						SignUp
@@ -160,14 +152,14 @@
                     <label>
                         <iframe id="agreement"  style="overflow-x:hidden; overflow:auto; width:100%; min-height:50px;" src="accounts/agreement/"></iframe>
                         <br>
-                        <input type="checkbox" > 이용약관에 동의합니다.
+                        <input type="checkbox" id = "chk1" name = "agree"> 이용약관에 동의합니다.
                         
                     </label>
     
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
                             <div class="login-background"></div>
-							<button class="login100-form-btn" type="submit" onClick = "validateForSignUp()" >
+							<button class="login100-form-btn" type="submit">
 								Sign up
 							</button>
 						</div>

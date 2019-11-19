@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="container"> 
+<form method="post" action="">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <!-- 글 본문 -->
+                <h1>{{ issue.title }}</h1>
+                <hr>
+                {% if issue.image %}
+                <img src="{{ issue.image.url }}">
+                {% endif %}
+                <p>{{ issue.text|linebreaksbr }}</p>
+            </div>
+        </div>
+        
+        <a href="{% url "issue_update" issue.issue_id %}">
+            <input class="btn btn-info" type="button" value="수정하기">
+        </a>
+    
+        </body>
+    </div>
+</form>
+
+</div>
+
+
+
+{% endblock %}

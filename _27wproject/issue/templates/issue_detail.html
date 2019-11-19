@@ -46,33 +46,25 @@
 {% endblock %}
 
 {% block content %}
-    <div class="banner bg-dark">
-        <br>
-        <h3>ISSUE</h3>
-        <br>
-    </div>
-    <br>
-
-    <div style="text-align: center;">
-        <a href="issue_detail.html"><h3>새 이슈 등록</h3></a>
-    </div>
-    <br>
-
-    <h3>{{ issue.title }}</h3>
-    <div class="card" style="width: 18rem;">
-        <div class="card-header">
-            <span> <a href="{% url 'accounts:people' post.user.username %}">{{ post.user.username }} </a></span>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <!-- 글 본문 -->
+            <h1>{{ issue.title }}</h1>
+            <hr>
+            {% if issue.image %}
+            <img src="{{ issue.image.url }}">
+            {% endif %}
+            <p>{{ issue.text|linebreaksbr }}</p>
         </div>
-        {% for image in post.image_set.all %}
-            <img src="{{ image.file.url }}" class="card-img-top" alt="{{ image.file.image }}">
-        {% endfor %}
-    <h5>{{ issue.text }}</h5>
-    <br>
-    <a href="issue_board.html"><button type="button" class="btn btn-outline-dark">목록</button></a>
-    <br><br><br><br>
-
-
-    <hr><br>
+    </div>
+        <a href="/issues/">List</a>
+        <a href="{% url "issue_update" issue.issue_id %}">
+            <input class="btn btn-info" type="button" value="수정하기">
+        </a>
+        
+        </body>
+</div>
     <tbody>
         <h3>Comment</h3>
             <form action="write_ok.jsp" method="post" encType="multiplart/form-data">

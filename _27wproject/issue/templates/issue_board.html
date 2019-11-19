@@ -102,27 +102,27 @@
     </div>
     
     {% if user.is_superuser %}
-    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'issue_create' %}">글쓰기</a></p>
+    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'issue_write' %}">글쓰기</a></p>
     {% endif %}
 
     <div class="board">
-        {% for lecture in posts %}
+        {% for issue in issues %}
         {% if forloop.counter0|divisibleby:3 %}
         <br><br><br>
         {% endif %}
         <div class="card" style="width: 18rem; display:inline-block;">
             <img src="{{ issue.image.url }}" class="card-img-top" alt="issue_image">
             <div class="card-body">
-                <h5 class="card-title">{{ lecture.title }}</h5>
-                <p class="card-text">{{ lecture.description }}</p>
-                <p class="card-text">{{ lecture.tutor }}</p>
-                <a href="{% url 'issue_detail' lecture.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
-                <a href="{% url 'issue_delete' lecture.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
+                <h5 class="card-title">{{ issue.title }}</h5>
+                <p class="card-text">{{ issue.text }}</p>
+                <p class="card-text">{{ issue.category }}</p>
+                <a href="{% url 'issue_detail' issue.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
+                <a href="{}" class="btn btn-outline-danger btn-sm">삭제</a>
             </div>
         </div>
         {% endfor %}
         <br><br>
-        {%if posts.has_previous%}
+        {%if issue.has_previous%}
         <a href="?page=1" class="btn btn-outline-secondary btn-sm">First</a>
         <a href="?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm">Previous</a>
         {%endif%}
