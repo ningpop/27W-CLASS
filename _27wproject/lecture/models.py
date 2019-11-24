@@ -24,6 +24,9 @@ class Lecture(models.Model):
 
     def __str__(self):
         return self.title
+
+    def summary(self):
+        return self.description[:15]
         
     # delete 오버라이딩
     def delete(self, *args, **kargs):

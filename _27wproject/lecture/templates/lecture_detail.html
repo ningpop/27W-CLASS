@@ -45,7 +45,7 @@
             padding-top: 2%;
             padding-bottom: 2%;
             padding-left: 2%;
-            padding-right: 15%;
+            padding-right: 5%;
             border-top: 1px solid gray;
             border-bottom: 1px solid gray;
         }
@@ -93,6 +93,11 @@
         <h5>가격: {{ lecture.price|intcomma }}원</h5>
         <h6>Like: (좋아요 수)</h6>
         <a href="{% url 'confirm_order' lecture.id %}" class="btn btn-warning">클래스 참여</a>
+        {% if user.is_superuser %}
+        <a href="{% url 'lecture_update' lecture.id %}" class="btn btn-outline-success">수정</a>
+        <a href="{% url 'lecture_delete' lecture.id %}" class="btn btn-outline-danger">삭제</a>
+        {% endif %}
+        <a href="#top" class="btn btn-light">맨 위로</a>
     </div>
 
     <div id="navbar">
@@ -160,7 +165,7 @@
             <form method="POST" action="{% url 'review' %}">
                 {% csrf_token %}
                 <input type="hidden" value="{{lecture.id}}" name="lecture">
-                댓글 작성 : <input type="text" name="text"><br>
+                후기 작성 : <input type="text" name="text"><br>
                 별점: <input type="number" name="score" style="width: 10%;">
                 <button type="submit" class="btn btn-secondary">작성</button>
             </form>

@@ -21,6 +21,9 @@ class Issue(models.Model):
     def __str__(self):
         return self.title
 
+    def summary(self):
+        return self.text[:15]
+
 
 class IssueComment(models.Model):
     # one to one field

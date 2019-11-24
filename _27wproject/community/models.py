@@ -25,6 +25,9 @@ class Community(models.Model):
     def __str__(self):
         return self.title
 
+    def summary(self):
+        return self.text[:15]
+
 
 class CommunityComment(models.Model):
     # one to one field

@@ -2,12 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Lecture, Review
 from django.utils import timezone
 from django.core.paginator import Paginator
+from .forms import LectureForm
 # Create your views here.
 
-'''
-def lecture_board(request):
-    return render(request, 'lecture_board.html')
-'''
 
 def lecture_board(request):
     #lectures = Lecture.objects
@@ -19,14 +16,6 @@ def lecture_board(request):
     return render(request, 'lecture_board.html', {'posts': posts})
 
 '''
-def lecture_detail(request):
-    return render(request, 'lecture_detail.html')
-'''
-
-def lecture_detail(request, lecture_id):
-    lecture_detail = get_object_or_404(Lecture, pk=lecture_id)
-    return render(request, 'lecture_detail.html', {'lecture': lecture_detail})
-
 def lecture_create(request):
     return render(request, 'lecture_create.html')
 
@@ -40,11 +29,40 @@ def lecture_submit(request):
     lecture.created_at = timezone.datetime.now()
     lecture.save()
     return redirect('/lecture/' + str(lecture.id))
+'''
+
+def lecture_create(request):
+    if request.method == 'POST':
+        lecture_form = LectureForm(request.POST, request.FILES)
+        if lecture_form.is_valid():
+            lecture_form.save()
+            return redirect('/lecture/')
+    else:
+        lecture_form = LectureForm()
+    return render(request, 'lecture_create.html', {'lecture_form': lecture_form})
+
+def lecture_detail(request, lecture_id):
+    lecture_detail = get_object_or_404(Lecture, pk=lecture_id)
+    return render(request, 'lecture_detail.html', {'lecture': lecture_detail})
+
+def lecture_update(request, lecture_id):
+    lecture_update = get_object_or_404(Lecture, pk=lecture_id)
+    if request.method == 'POST':
+        lecture_form = LectureForm(request.POST, request.FILES, instance=lecture_update)
+        if lecture_form.is_valid():
+            lecture_form.save()
+            return redirect('/lecture/' + str(lecture_id))
+    else:
+        lecture_form = LectureForm(instance=lecture_update)
+    return render(request, 'lecture_update.html', {'lecture_form':lecture_form})
 
 def lecture_delete(request, lecture_id):
     lecture = get_object_or_404(Lecture, pk=lecture_id)
     lecture.delete()
     return redirect('/lecture/')
+
+
+# review
 
 def review(request):
     if request.method == 'POST':

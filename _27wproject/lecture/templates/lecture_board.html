@@ -100,7 +100,7 @@
     </div>
     
     {% if user.is_superuser %}
-    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'lecture_create' %}">글쓰기</a></p>
+    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'lecture_create' %}" class="btn btn-light">글쓰기</a></p>
     {% endif %}
 
     <hr>
@@ -119,10 +119,13 @@
             <img src="{{ lecture.image.url }}" class="card-img-top" alt="lecture_image">
             <div class="card-body">
                 <h5 class="card-title">{{ lecture.title }}</h5>
-                <p class="card-text">{{ lecture.description }}</p>
+                <p class="card-text">{{ lecture.summary }}...</p>
                 <p class="card-text">{{ lecture.tutor }}</p>
                 <a href="{% url 'lecture_detail' lecture.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
+                {% if user.is_superuser %}
+                <a href="{% url 'lecture_update' lecture.id %}" class="btn btn-outline-success btn-sm">수정</a>
                 <a href="{% url 'lecture_delete' lecture.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

@@ -106,7 +106,7 @@
     <div class="card" style="width: 18rem; display:inline-block;">
         <div class="card-body">
             <h5 class="card-title">{{ community.title }}</h5>
-            <p class="card-text">{{ community.description }}</p>
+            <p class="card-text">{{ community.summary }}...</p>
             <p class="card-text">{{ community.tutor }}</p>
             <a href="{% url 'community_detail' community.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
         </div>
@@ -129,7 +129,7 @@
         <img src="{{ lecture.image.url }}" class="card-img-top" alt="lecture_image">
         <div class="card-body">
             <h5 class="card-title">{{ lecture.title }}</h5>
-            <p class="card-text">{{ lecture.description }}</p>
+            <p class="card-text">{{ lecture.summary }}...</p>
             <p class="card-text">{{ lecture.tutor }}</p>
             <a href="{% url 'lecture_detail' lecture.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
         </div>
@@ -153,7 +153,7 @@
         <img src="{{ issue.image.url }}" class="card-img-top" alt="issue_image">
         <div class="card-body">
             <h5 class="card-title">{{ issue.title }}</h5>
-            <p class="card-text">{{ issue.description }}</p>
+            <p class="card-text">{{ issue.summary }}...</p>
             <p class="card-text">{{ issue.tutor }}</p>
             <a href="{% url 'issue_detail' issue.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
         </div>
