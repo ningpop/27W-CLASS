@@ -18,9 +18,18 @@ from . import views
 # django rest framework -> router -> url
 
 urlpatterns = [
-    path('', views.issues, name='issue_board'),
-    path('<int:issue_id>/', views.issue_detail, name='issue_detail'),
-    path('write/', views.write_issue, name='issue_write'),
-    path('comment/write', views.write_comment, name='comment_write'),
-    path('<int:issue_id>/update/', views.update_issue, name = 'issue_update'),
+    path('', views.IssueListView.as_view(),
+         name='issue_board'),
+
+    path('create/', views.IssueCreateView.as_view(),
+         name='issue_create'),
+    path('<int:pk>/', views.issue_detail,
+         name='issue_detail'),
+    # path('comment/write', views.write_comment, name='comment_write'),
+    path('<int:pk>/update', views.IssueUpdateView.as_view(),
+         name='issue_update'),
+    path('<int:pk>/delete', views.IssueDeleteView.as_view(),
+         name='issue_delete'),
+    path('comment/write', views.comment_write,
+         name='comment_write'),
 ]

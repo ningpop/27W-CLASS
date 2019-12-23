@@ -3,88 +3,89 @@
 {% load staticfiles %}
 
 {% block head %}
-    <script  src="issuedetail.js"></script>
-    <title>27W - 이슈</title>
-    <style>
-        .nav-now, .nav-link:hover{
-            color: #ffA500 !important;
-        }
-        .account:link, .account:visited, .account:hover{
-            color: black;
-            text-decoration: none;
-        }
-        a, a:link, a:visited, a:hover{
-            text-decoration: none;
-            color:black;
-        }
-        .banner{
-            text-align: center;
-            color:white;
-        }
-    </style>
+<script src="issuedetail.js"></script>
+<title>27W - 이슈</title>
+<style>
+    .nav-now,
+    .nav-link:hover {
+        color: #ffA500 !important;
+    }
+
+    .account:link,
+    .account:visited,
+    .account:hover {
+        color: black;
+        text-decoration: none;
+    }
+
+    a,
+    a:link,
+    a:visited,
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+
+    .banner {
+        text-align: center;
+        color: white;
+    }
+</style>
 {% endblock %}
 
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">홈</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'community_board' %}">커뮤니티</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link nav-now" href="{% url 'issue_board' %}">이슈<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">홈</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'community_board' %}">커뮤니티</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
+            </li>
+            <li class="nav-item active">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+            </li>
+            <li class="nav-item active">
+            </li>
+        </ul>
+    </div>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <div class="banner bg-dark">
-        <br>
-        <h3>ISSUE</h3>
-        <br>
-    </div>
+<div class="banner bg-dark">
     <br>
-
-    <div style="text-align: center;">
-        <h3>새 이슈 등록</h3>
-    </div>
+    <h3>ISSUE</h3>
     <br>
+</div>
 
-    <tbody style="text-align: center;">
-        <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
-            <tr>
-                <th>제목: </th>
-                <td><input type="text" placeholder="제목을 입력하세요. " name="subject"/><br></td>
-            </tr>
-            
-            <tr>
-                <th>내용: </th>
-                <td><textarea cols="100" rows="10" placeholder="내용을 입력하세요. " name="content"></textarea><br></td>
-            </tr>
-            
+<div class="site-section bg-light" id="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <br>
+                <br>
+                <h2 class="text-black section-title text-uppercase">새 이슈 등록</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 mb-5">
+        <form method='post' class="lecture_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-warning">저장</button>
+            <a href="{% url 'issue_board' %}" class="btn btn-secondary">목록</a>
         </form>
-    </tbody>
-    <table>
+                </div>
 
-        <!--<input type="text" placeholder="제목을 입력하세요. " name="subject"/>-->
-        <!--파일 업로드를 이미지(jpeg, gif, png)로만 제한-->
-        <form method="post" action="..." enctype="multipart/form-data">
-        <label for="image">Photo: </label>
-        <input type = "file"accept = "image /*"name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">
-        <!--이미지파일 업로드시 미리보기-->
-        <div id='View_area' style='position:relative; width: 100px; height: 100px; color: black; border: 0px solid black; display: inline; '></div>
-        </form>
-        <button type="submit" class="btn btn-outline-dark">등록하기</button>
-        <button type="button"><a href="{% url 'issue_board' %}">목록</a></button>
-    </table>
+              </div>
+            </div>
+          </div>
     
     
 {% endblock %}

@@ -26,4 +26,6 @@ urlpatterns = [
     path('signup', views.signup, name = 'signup'),
     path('logout', views.logout, name = 'logout'),
     path('accounts/agreement/',TemplateView.as_view(template_name = "agreement.html"),name='agreement'),
+    path('<int:pk>/update', views.AccountUpdateView.as_view(), name='update_account'),
+    path('mypage/<int:pk>', views.get_mypage, name='mypage')
 ]

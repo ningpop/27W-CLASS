@@ -1,139 +1,140 @@
-from django.shortcuts import render
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .decorators import admin_required
+from django.db import transaction
+# specific to this view
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.views.generic import ListView
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+# specific to this view
+from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
+from django.contrib.auth.models import User
 from .models import Issue, IssueComment
 from .forms import IssueForm
-
-from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.core.paginator import Paginator
-
-
-def issues(request):
-    issues = Issue.objects.order_by('-created_at')
-    issue_list = Issue.objects.all()
-    paginator = Paginator(issue_list, 10)
-    page = request.GET.get('page')
-    page_issues = paginator.get_page(page)
-
-    return render(request, 'issue_board.html', context={'issues': issues, 'page_issues': page_issues})
-
-
-def issue_detail(request, issue_id):
-    issue = get_object_or_404(Issue, pk=issue_id)
-    comments = IssueComment.objects.filter(issue=issue.id)
-
-
-    return render(request, 'issue_detail.html',
-                  context={'issue': issue, 'comments': comments})
-
-
-@login_required  # login_requierd source code - https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/decorators/#login_required
-def write_issue(request):
-    errors = []
-    if request.method == 'POST':
-        title = request.POST.get('title', '').strip()
-        content = request.POST.get('content', '').strip()
-        image = request.FILES.get('image')
-
-        if not title:
-            errors.append('제목을 입력해주세요.')
-
-        if not content:
-            errors.append('내용을 입력해주세요.')
-
-        if not errors:
-            issue = Issue.objects.create(
-                user_id=request.user, title=title, text=content, image=image)
-
-            # path('post/<int:article_id>/<int:post_id>/', views.post_detail, name='post_detail')
-            # /post/%d/ % post.id == reverse('post_detail' , args=[post.id, article.id]) -> args로 할 경우 순서대로 url 로직 순서대로 들억야 함.
-            return redirect(reverse('issue:issue_detail', kwargs={'issue_id': issue.id}))
-
-    return render(request, 'issue_create.html', {'user': request.user, 'errors': errors})
-
-
-
-def update_issue(request, issue_id):
-    issue_id = int(issue_id)
-
-    try:
-        now_issue = Issue.objects.get(id=issue_id)
-    except Issue.DoesNotExist:
-        return redirect('issue')
-
-    if request.method == "POST":
-        issue = Issue.objects.get(pk=issue_id)
-        issue.title = request.POST.get('title')
-        issue.text = request.POST.get("content")
-        issue.image = request.POST.get("image")
-        issue.save()
-        return redirect(reverse(f"/{issue_id}/", kwargs={"issue_id": issue.id}))
-
-    return render(request, "issue_update.html")
-
-
-
-def delete_issue(request, issue_id):
-    issue = int(issue_id)
-    try:
-        issue = Issue.objects.get(id = issue_id)
-    except Issue.DoesNotExist:
-        return redirect('issue')
-    issue.delete()
-    return redirect('issue')
+from django.views.generic.edit import FormView
 
 @login_required
-def write_comment(request):
+@transaction.atomic
+def update_issue(request):
+    if request.method == 'POST':
+        issue_form = IssueForm(request.POST, instance=request.user)
+        
+        if issue_form.is_valid():
+            issue_form.save()
+            
+            messages.success(request, ('issue was successfully updated!'))
+            return redirect('myprofile')
+        else:
+            messages.error(request, ('Please correct the error below.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'filter/updateprofile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+class IssueListView(ListView):
+
+    model = Issue
+    template_name = 'issue_board.html'
+    context_object_name = 'issues'
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueListView, self).get_context_data(**kwargs)
+        issues = self.get_queryset()
+        page = self.request.GET.get('page')
+        paginator = Paginator(issues, self.paginate_by)
+        try:
+            issues = paginator.page(page)
+        except PageNotAnInteger:
+            issues = paginator.page(1)
+        except EmptyPage:
+            issues = paginator.page(paginator.num_pages)
+        context['issues'] = issues
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class IssueCreateView(CreateView):
+    model = Issue
+    template_name = 'issue_create.html'
+    fields = ('title', 'text', 'image')
+    success_url = reverse_lazy('issue_board')
+
+
+def issue_detail(request, pk):
+    issue = get_object_or_404(Issue, pk=pk)
+    comments = IssueComment.objects.filter(issue=issue.id)
+
+    return render(request, 'issue_detail.html', context={'issue': issue, 'comments':comments})
+
+
+@method_decorator(login_required, name='dispatch')
+class IssueUpdateView(UpdateView):
+
+    model = Issue
+    form_calss = IssueForm
+    template_name = 'issue_update.html'
+    context_object_name = 'issue'
+    fields = ('title', 'text', 'image')
+
+
+    def get_success_url(self):
+        return reverse_lazy('issue_detail', kwargs={'pk': self.object.id})
+
+
+@method_decorator(login_required, name='dispatch')
+class IssueDeleteView(DeleteView):
+    model = Issue
+    template_name = 'issue_delete.html'
+    success_url = reverse_lazy('issue_board')
+
+
+@login_required
+def comment_write(request):
     errors = []
     if request.method == 'POST':
-        issue_id = request.POST.get('post_id', '').strip()
+        issue_id = request.POST.get('issue_id', '').strip()
+        print(issue_id)
+        text = request.POST.get('content', '').strip()
+
+        if not text:
+            errors.append('댓글을 입력해주세요.')
+
+        if not errors:
+            comment = IssueComment.objects.create(
+                user=request.user, issue_id=issue_id, text=text)
+
+            print(comment.issue.id)
+            return redirect(reverse('issue_detail', kwargs={'pk': comment.issue.id}))
+
+    return render(request, 'issue_detail.html', {'user': request.user, 'errors': errors})
+
+
+"""
+@login_required
+def comment_write(request):
+    errors = []
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id', '').strip()
         content = request.POST.get('content', '').strip()
 
         if not content:
             errors.append('댓글을 입력해주세요.')
 
         if not errors:
-            comment = IssueComment.objects.create(
-                user=request.user, issue_id=issue_id, text=content)
+            comment = Comment.objects.create(
+                user=request.user, post_id=post_id, content=content)
 
-            return redirect(reverse('issue:issue_detail', kwargs={'post_id': comment.issue.id}))
+            return redirect(reverse('blogs:post_detail', kwargs={'post_id': comment.post.id}))
 
-    return render(request, 'issue_detail.html', {'user': request.user, 'errors': errors})
-
-
-"""
-class IssueList(ListView):
-    model = Issue
-    template_name = 'issue_board.html'
-    context_object_name = 'issue_list'
-
-
-class IssueDetail(DetailView):
-    template_name = 'issue_detail.html'
-    queryset = Issue.objects.all()
-    context_object_name = 'issue'
-
-
-@method_decorator(admin_required, name='dispatch')
-class IssueCreate(FormView):
-    template_name = 'issue_create.html'
-    form_class = IssueForm
-    success_url = ''
-
-    def form_invalid(self, form):
-        issue = Issue(
-            title=form.data.get('title'),
-            text=form.data.get('text'),
-            image=form.data.get('image'),
-            category=form.data.get('category'),
-            created_at=form.data.get('created_at')
-        )
-        issue.save()
-        return super().form_valid(form)
-
+    return render(request, 'post_detail.html', {'user': request.user, 'errors': errors})
 """

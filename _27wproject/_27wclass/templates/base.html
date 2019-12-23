@@ -31,6 +31,7 @@
                 {% if user.is_authenticated %}
                 <h5>Welcome, {{user.username}}</h5>
                 <a class="account" href="{% url 'logout' %}">Logout</a>
+                | <a class="account" href="{%url 'mypage' user.id %}">mypage</a>
                 {% else %}
                 <a class="account" href="{%url 'login' %}">Login</a>
                 {%endif%}

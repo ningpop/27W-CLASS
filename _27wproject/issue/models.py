@@ -27,7 +27,7 @@ class Issue(models.Model):
 
 class IssueComment(models.Model):
     # one to one field
-    issue = models.ForeignKey(Issue, on_delete=models.CASCADE, null=True, blank=True)
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     text = models.TextField()
