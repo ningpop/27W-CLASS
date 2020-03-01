@@ -5,10 +5,37 @@ from django.core.paginator import Paginator
 from .forms import LectureForm
 # Create your views here.
 
-
 def lecture_board(request):
     #lectures = Lecture.objects
     lecture_list = Lecture.objects.all().order_by('-id')
+    paginator = Paginator(lecture_list, 12)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    #return render(request, 'lecture_board.html', {'lectures': lectures, 'posts': posts})
+    return render(request, 'lecture_board.html', {'posts': posts})
+
+# category filtering function
+def lecture_board_art(request):
+    #lectures = Lecture.objects
+    lecture_list = Lecture.objects.all().order_by('-id').filter(category='Art')
+    paginator = Paginator(lecture_list, 12)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    #return render(request, 'lecture_board.html', {'lectures': lectures, 'posts': posts})
+    return render(request, 'lecture_board.html', {'posts': posts})
+
+def lecture_board_design(request):
+    #lectures = Lecture.objects
+    lecture_list = Lecture.objects.all().order_by('-id').filter(category='Design')
+    paginator = Paginator(lecture_list, 12)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    #return render(request, 'lecture_board.html', {'lectures': lectures, 'posts': posts})
+    return render(request, 'lecture_board.html', {'posts': posts})
+
+def lecture_board_social(request):
+    #lectures = Lecture.objects
+    lecture_list = Lecture.objects.all().order_by('-id').filter(category='Social Media')
     paginator = Paginator(lecture_list, 12)
     page = request.GET.get('page')
     posts = paginator.get_page(page)

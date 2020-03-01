@@ -22,6 +22,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.lecture_board, name='lecture_board'),
+    path('art/', views.lecture_board_art, name='lecture_board_art'),
+    path('design/', views.lecture_board_design, name='lecture_board_design'),
+    path('social/', views.lecture_board_social, name='lecture_board_social'),
     path('<int:lecture_id>/', views.lecture_detail, name = 'lecture_detail'),
     path('create/', views.lecture_create, name = 'lecture_create'),
     #path('submit/', views.lecture_submit, name = 'lecture_submit'),

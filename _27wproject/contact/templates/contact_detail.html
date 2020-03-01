@@ -35,6 +35,7 @@
         }
         .content{
             margin-left: 5%;
+            margin-right: 5%;
         }
     </style>
 {% endblock %}
@@ -68,11 +69,16 @@
     </div>
     <br>
 
-    <div style="margin-left:5%;">
+    <div style="margin-left: 5%; margin-right: 5%">
         <h4>제목: {{ contact.title }}</h4>
-        <p>내용: {{ contact.text }}</p>
+        <h5 style="float: right;">작성자: {{ contact.user }}</h5>
+        <br><hr>
+        <p>{{ contact.text }}</p>
         <br><br>
         <a href="{% url 'contact_board' %}" class="btn btn-outline-success btn-sm">목록</a>
+        {% if contact.user == user %}
+        <a href="{% url 'contact_update' contact.id %}" class="btn btn-outline-warning btn-sm">수정</a>
+        {% endif %}
         {% if user.is_superuser %}
         <a href="{% url 'contact_delete' contact.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
         {% endif %}
@@ -97,6 +103,9 @@
             <strong>{{ answer.admin }}</strong>
             <div class="date">{{ answer.created_at }}</div>
             <p>{{ answer.text|linebreaks }}</p>
+            {% if user.is_superuser %}
+            <a href="{% url 'answer_delete' answer.id %}" class="btn btn-outline-danger btn-sm">삭제</a>
+            {% endif %}
         </div>
         {% empty %}
         <p>No answer here yet :(</p>

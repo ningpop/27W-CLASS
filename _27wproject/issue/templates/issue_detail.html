@@ -67,43 +67,40 @@
 {% endblock %}
 
 {% block content %}
-
-<body>
-    <div class="wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <!-- 글 본문 -->
-                    <br>
-                    <br>
-                    <h1>{{ issue.title }}</h1>
-                    <hr>
-                    {% if issue.image %}
-                    <img src="{{ issue.image.url }}">
-                    <br>
-                    <br>
-                    {% endif %}
-                    <p>{{ issue.text|linebreaksbr }}</p>
-                    <br>
-                    <br>
-                </div>
+<div class="wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <!-- 글 본문 -->
+                <br>
+                <br>
+                <h1>{{ issue.title }}</h1>
+                <hr>
+                {% if issue.image %}
+                <img src="{{ issue.image.url }}" style="max-width: 100%;">
+                <br>
+                <br>
+                {% endif %}
+                <p>{{ issue.text|linebreaksbr }}</p>
+                <br>
+                <br>
             </div>
-            <hr align="left" style="border: solid 25px f2f2f2; width: 100%;">
+        </div>
+        <hr align="left" style="border: solid 25px f2f2f2; width: 100%;">
 
-            <a href="{% url "issue_update" issue.id %}">
-                <input class="btn btn-info" type="button"
-                    style="background-color: #ffA500; border-color:#ffA500; font-size: 12px;float: right; margin-right: 1%;"
-                    value="수정하기">
-            </a>
-            <a href="{% url "issue_delete" issue.id %}">
-                <input class="btn btn-info" type="button"
-                    style="background-color: #ffA500; border-color:#ffA500; font-size: 12px;float: right; margin-right: 1%;"
-                    value="삭제하기">
-            </a>
-            <a href="/issues/" style="font-size: 20px; float: right; margin-right: 1%">List</a>
+        <a href="{% url "issue_update" issue.id %}">
+            <input class="btn btn-info" type="button"
+                style="background-color: #ffA500; border-color:#ffA500; font-size: 12px;float: right; margin-right: 1%;"
+                value="수정하기">
+        </a>
+        <a href="{% url "issue_delete" issue.id %}">
+            <input class="btn btn-info" type="button"
+                style="background-color: #ffA500; border-color:#ffA500; font-size: 12px;float: right; margin-right: 1%;"
+                value="삭제하기">
+        </a>
+        <a href="/issues/" style="font-size: 20px; float: right; margin-right: 1%">List</a>
 
-            <!-- 댓글 목록 -->
-</body>
+        <!-- 댓글 목록 -->
 
 <br><br>
 <div class="container">
@@ -139,7 +136,7 @@
             <input type="hidden" name="issue_id" value="{{ issue.id }}">
             <div class="form-group row">
                 <textarea class="form-control" name="content" rows="7"></textarea>
-            </div>
+            {% comment %} </div> {% endcomment %}
             <div class="form-group row float-right">
                 <button type="submit" class="btn btn-primary">저장하기</button>
             </div>

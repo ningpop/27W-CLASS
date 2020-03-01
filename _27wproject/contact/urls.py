@@ -21,7 +21,9 @@ urlpatterns = [
     path('', views.contact_board, name = 'contact_board'),
     path('<int:contact_id>/', views.contact_detail, name = 'contact_detail'),
     path('create/', views.contact_create, name = 'contact_create'),
-    path('submit/', views.submit, name = 'submit'),
-    path('delete/<int:contact_id>/', views.contact_delete, name = 'contact_delete'),
+    path('<int:contact_id>/update/', views.contact_update, name = 'contact_update'),
+    #path('submit/', views.submit, name = 'submit'),
+    path('<int:contact_id>/delete/', views.contact_delete, name = 'contact_delete'),
     path('answer/',views.answer, name="answer"),
+    path('answer/<int:answer_id>/delete/', views.answer_delete, name = 'answer_delete'),
 ]

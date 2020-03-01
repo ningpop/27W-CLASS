@@ -61,12 +61,15 @@
         </div>
         <br>
 
-        <form class="contact_form" action="{% url 'submit' %}" method="post" enctype="multipart/form-data">
+        <form class="contact_form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {{ contact_form.as_p }}
+            <!--
             <p>제목: <input type="text" placeholder="제목을 입력하세요." name="title" size="74"/></p>
             <p>내용: <textarea cols="68" rows="10" placeholder="내용을 입력하세요." name="content"></textarea></p>
+            -->
             <button type="submit" class="btn btn-warning">저장</button>
-            <a href="{% url 'contact_board' %}"><button type="button" class="btn btn-secondary">목록</button></a>
+            <a href="{% url 'contact_board' %}" class="btn btn-secondary">목록</a>
         </form>
     </div>
     <br>

@@ -68,7 +68,7 @@
     </div>
     <br>
 
-    {% if user.is_superuser %}
+    {% if user.is_authenticated %}
     <p style="text-align: right; margin-right: 1%;"><a href="{% url 'contact_create' %}" class="btn btn-light">글쓰기</a></p>
     {% endif %}
 
