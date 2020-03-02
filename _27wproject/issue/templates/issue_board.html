@@ -52,7 +52,9 @@
         text-align: center;
         color: white;
     }
-
+    .board{
+        text-align: center;
+    }
     .category {
         text-align: center;
     }
@@ -137,26 +139,30 @@
             <p class="card-text">{{ issue.text }}</p>
             <p class="card-text">{{ issue.category }}</p>
             <a href="{% url 'issue_detail' pk=issue.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
-            <a href="{}" class="btn btn-outline-danger btn-sm">삭제</a>
+            {% if user.is_superuser %}
+            <a href="" class="btn btn-outline-warning btn-sm">수정</a>
+            <a href="" class="btn btn-outline-danger btn-sm">삭제</a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
     <br><br>
-    {%if issue.has_previous%}
+
+    {% if is_paginated %}
+    {%if page_obj.has_previous%}
     <a href="?page=1" class="btn btn-outline-secondary btn-sm">First</a>
-    <a href="?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm">Previous</a>
+    <a href="?page={{page_obj.previous_page_number}}" class="btn btn-outline-secondary btn-sm">Previous</a>
     {%endif%}
 
-    {%if issues.has_next%}
-    <a href="?page={{issues.next_page_number}}" style="position: absolute; left : 52%; "> Next</a>
-    <a href="?page={{issues.paginator.num_pages}}" style=" position: absolute; left : 46%;">Last</a>
+    <span> {{page_obj.number}}</span>
+    <span> of </span>
+    <span>{{page_obj.paginator.num_pages}} </span>
+
+    {%if page_obj.has_next%}
+    <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-secondary btn-sm"> Next</a>
+    <a href="?page={{page_obj.paginator.num_pages}}" class="btn btn-outline-secondary btn-sm">Last</a>
     {%endif%}
-
-    <center>
-        <span> {{issues.number}}</span>
-        <span> of </span>
-        <span>{{issues.paginator.num_pages}} </span> </center>
-
+    {% endif %}
 </div>
 
 <br>

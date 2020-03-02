@@ -45,20 +45,24 @@ class IssueListView(ListView):
     model = Issue
     template_name = 'issue_board.html'
     context_object_name = 'issues'
-    paginate_by = 5
+    paginate_by = 12
 
+    # Overriding for pagination
     def get_context_data(self, **kwargs):
         context = super(IssueListView, self).get_context_data(**kwargs)
         issues = self.get_queryset()
-        page = self.request.GET.get('page')
         paginator = Paginator(issues, self.paginate_by)
+
+        page = self.request.GET.get('page')
+
         try:
             issues = paginator.page(page)
         except PageNotAnInteger:
             issues = paginator.page(1)
         except EmptyPage:
-            issues = paginator.page(paginator.num_pages)
-        context['issues'] = issues
+            issues = paginaotor.page(paginator.num_pages)
+
+        context["issues"] = issues
         return context
 
 
