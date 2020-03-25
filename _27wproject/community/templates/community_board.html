@@ -41,6 +41,26 @@
         .who{
             width: 10%;
         }
+
+        .write_btn {
+            width:60px;
+            background-color: #ffA500;
+            border: none;
+            border-radius:10px;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin: 3px;
+            cursor: pointer;
+        }
+        
+        .write_btn:hover {
+            background-color: #3c3d40;
+        }
+
     </style>
 {% endblock %}
 
@@ -76,34 +96,89 @@
     <div class="category">
         <h4 style="text-align: center;">CATEGORY</h4><br>
         <div class="category-item">
-            <a href="">
+            <a href="{% url 'community_board_art' %}">
                 <img src="{% static 'images/art.png' %}" style="width:20%; height:20%;"><br>
-                <p class="btn btn-warning btn-sm">예술</p>
+                <p>예술</p>
             </a>
         </div>
         <div class="category-item">
-            <a href="">
+            <a href="{% url 'community_board_design' %}">
                 <img src="{% static 'images/design.png' %}" style="width:20%; height:20%;"><br>
-                <p class="btn btn-warning btn-sm">디자인</p>
+                <p>디자인</p>
             </a>
         </div>
         <div class="category-item">
-            <a href="">
+            <a href="{% url 'community_board_social' %}">
                 <img src="{% static 'images/social_media.png' %}" style="width:20%; height:20%;"><br>
-                <p class="btn btn-warning btn-sm">소셜미디어</p>
+                <p>소셜미디어</p>
             </a>
         </div>
     </div>
 
-    {% if user.is_superuser %}
-    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'community_create' %}">글쓰기</a></p>
-    {% endif %}
+    <br>
 
     <hr>
 
-    <table width="100%">
-        <tr>
-            <th scope="col" class="num">글 번호</th>
+    {% if user.is_superuser %}
+    <p style="text-align: right; margin-right: 3%;">
+        <a style="color: #fff;"
+            class="write_btn"
+            href="{% url 'community_create' %}">글쓰기
+        </a>
+    </p>
+    {% endif %}
+
+    <div>
+        <hr>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link disabled">번호</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">분야</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">제목</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">작성일</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">작성자</a>
+            </li>
+        </ul>
+
+        <hr>
+
+        {% for community in posts %}
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ community.id }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ community.category }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'community_detail' community.id %}">{{ community.title }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ community.created_at|date:"y.m.d" }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ community.user }}</a>
+            </li>
+        </ul>
+        {% endfor %}
+    <div>
+        
+    <hr>
+    <br><br>
+{% endblock %}
+
+<!--
+        <table width="100%">
+            <tr>
+                <th scope="col" class="num">글 번호</th>
             <th scope="col" class="title">글 제목</th>
             <th scope="col" class="date">작성일</th>
             <th scope="col" class="who">작성자</th>
@@ -118,6 +193,4 @@
         </tr>
         {% endfor %}
     </table>    
-
-    <hr>
-{% endblock %}
+    -->

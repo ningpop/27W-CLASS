@@ -44,7 +44,13 @@ INSTALLED_APPS = [
     'contact.apps.ContactConfig',
     'issue.apps.IssueConfig',
     'lecture.apps.LectureConfig',
+    'widget_tweaks',
+
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -36,6 +36,23 @@
         .board{
             text-align: center;
         }
+        .write_btn {
+            width:60px;
+            background-color: #ffA500;
+            border: none;
+            border-radius:10px;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin: 3px;
+            cursor: pointer;
+        }
+        .write_btn:hover {
+            background-color: #3c3d40;
+        }
     </style>
 {% endblock %}
 
@@ -69,30 +86,50 @@
     <br>
 
     {% if user.is_authenticated %}
-    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'contact_create' %}" class="btn btn-light">글쓰기</a></p>
+    <p style="text-align: right; margin-right: 3%;">
+        <a style="color: #fff;"
+            class="write_btn"
+            href="{% url 'contact_create' %}">글쓰기
+        </a>
+    </p>
     {% endif %}
 
-    <hr>
-
     <div class="board">
-        <table width="100%">
-            <tr>
-                <th scope="col" class="num">글 번호</th>
-                <th scope="col" class="title">글 제목</th>
-                <th scope="col" class="date">작성일</th>
-                <th scope="col" class="who">작성자</th>
-            </tr>
-            
-            {% for contact in posts %}
-            <tr>
-                <td class="num"><p>{{ contact.id }}</p></td>
-                <td class="title"><a href="{% url 'contact_detail' contact.id %}"><p>{{ contact.title }}</p></a></td>
-                <td class="date"><p>{{ contact.created_at }}</p></td>
-                <td class="who"><p>{{ contact.user }}</p></td>
-            </tr>
-            {% endfor %}
-        </table>
-    
+        <hr>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link disabled">번호</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">제목</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">작성일</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">작성자</a>
+            </li>
+        </ul>
+
+        <hr>
+
+        {% for contact in posts %}
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ contact.id }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'contact_detail' contact.id %}">{{ contact.title }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ contact.created_at|date:"y.m.d" }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ contact.user }}</a>
+            </li>
+        </ul>
+        {% endfor %}
+
         <br><br>
         {%if posts.has_previous%}
         <a href="?page=1" class="btn btn-outline-secondary btn-sm">First</a>
@@ -108,5 +145,5 @@
         <a href="?page={{posts.paginator.num_pages}}" class="btn btn-outline-secondary btn-sm">Last</a>
         {%endif%}
         <br><br>
-    </div>
+    <div>
 {% endblock %}

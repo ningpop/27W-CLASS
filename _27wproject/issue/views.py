@@ -19,7 +19,7 @@ from .models import Issue, IssueComment
 from .forms import IssueForm
 from django.views.generic.edit import FormView
 
-@login_required
+@login_required(login_url="/accounts/login")
 @transaction.atomic
 def update_issue(request):
     if request.method == 'POST':
@@ -66,11 +66,62 @@ class IssueListView(ListView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+def issue_board_art(request):
+    issue_list = Issue.objects.all().order_by('-id').filter(category='Art')
+    paginator = Paginator(issue_list, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    return render(request, 'issue_board.html', {'issues': posts})
+
+
+def issue_board_design(request):
+    issue_list = Issue.objects.all().order_by('-id').filter(category='Design')
+    paginator = Paginator(issue_list, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    return render(request, 'issue_board.html', {'issues': posts})
+
+
+def issue_board_social(request):
+    issue_list = Issue.objects.all().order_by('-id').filter(category='Social')
+    paginator = Paginator(issue_list, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    return render(request, 'issue_board.html', {'issues': posts})
+
+
+def community_create(request):
+    '''
+    community = Community(user=request.user)
+    community_list = Community.objects
+    
+    if request.method == 'POST':
+        form = CommunityFormModel(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            #return redirect('/community/')
+            return render(request, 'community_board.html', {'community_list': community_list})
+
+    else:
+        form = CommunityFormModel()
+        return render(request, 'community_create.html', {'form':form})
+    '''
+
+    if request.method == 'POST':
+        community_form = CommunityFormModel(request.POST, request.FILES)
+        if community_form.is_valid():
+            community_form.save()
+            return redirect('/community/')
+    else:
+        community_form = CommunityFormModel()
+    return render(request, 'community_create.html', {'community_form': community_form})
+
+@method_decorator(login_required(login_url="/accounts/login"), name='dispatch')
 class IssueCreateView(CreateView):
     model = Issue
     template_name = 'issue_create.html'
-    fields = ('title', 'text', 'image')
+    fields = ('title', 'text', 'image', 'category')
     success_url = reverse_lazy('issue_board')
 
 
@@ -81,7 +132,7 @@ def issue_detail(request, pk):
     return render(request, 'issue_detail.html', context={'issue': issue, 'comments':comments})
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/accounts/login"), name='dispatch')
 class IssueUpdateView(UpdateView):
 
     model = Issue
@@ -95,14 +146,15 @@ class IssueUpdateView(UpdateView):
         return reverse_lazy('issue_detail', kwargs={'pk': self.object.id})
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/accounts/login"), name='dispatch')
 class IssueDeleteView(DeleteView):
     model = Issue
     template_name = 'issue_delete.html'
     success_url = reverse_lazy('issue_board')
 
 
-@login_required
+
+@login_required(login_url="/accounts/login")
 def comment_write(request):
     errors = []
     if request.method == 'POST':

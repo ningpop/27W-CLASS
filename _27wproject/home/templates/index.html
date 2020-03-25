@@ -98,6 +98,8 @@
     <h3>COMMUNITY</h3>
 </div>
 
+<hr>
+
 <div class="board">
     {% for community in community_list %}
     {% if forloop.counter0|divisibleby:3 %}
@@ -106,8 +108,7 @@
     <div class="card" style="width: 18rem; display:inline-block;">
         <div class="card-body">
             <h5 class="card-title">{{ community.title }}</h5>
-            <p class="card-text">{{ community.summary }}...</p>
-            <p class="card-text">{{ community.tutor }}</p>
+            <p class="card-text">{{ community.user }}</p>
             <a href="{% url 'community_detail' community.id %}" class="btn btn-outline-secondary btn-sm">더보기</a>
         </div>
     </div>
@@ -119,6 +120,8 @@
 <div class="banner">
     <h3>ONLINE LECTURE</h3>
 </div>
+
+<hr>
 
 <div class="board">
     {% for lecture in lecture_list %}
@@ -143,6 +146,8 @@
 <div class="banner">
     <h3>ISSUE</h3>
 </div>
+
+<hr>
 
 <div class="board">
     {% for issue in issue_list %}

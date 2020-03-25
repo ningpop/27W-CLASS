@@ -75,17 +75,14 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6 mb-5">
-        <form method='post' class="lecture_form" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-warning">저장</button>
-            <a href="{% url 'issue_board' %}" class="btn btn-secondary">목록</a>
-        </form>
-                </div>
-
-              </div>
+                <form method='post' class="lecture_form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-warning">저장</button>
+                    <a href="{% url 'issue_board' %}" class="btn btn-secondary">목록</a>
+                </form>
             </div>
-          </div>
-    
-    
+        </div>
+    </div>
+</div>
 {% endblock %}

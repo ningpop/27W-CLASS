@@ -14,7 +14,7 @@ class IssueForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.request = request
 
-   # form css 넣기 Library https://pypi.org/project/django-widget-tweaks/
+    # form css 넣기 Library https://pypi.org/project/django-widget-tweaks/
     title = forms.CharField(
         error_messages={
             'required': '글의 제목을 입력해주세요.'

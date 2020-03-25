@@ -64,6 +64,23 @@
         display: inline-block;
         width: 20%;
     }
+    .write_btn {
+        width:60px;
+        background-color: #ffA500;
+        border: none;
+        border-radius:10px;
+        padding: 10px 0;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        margin: 3px;
+        cursor: pointer;
+    }
+    .write_btn:hover {
+        background-color: #3c3d40;
+    }
 </style>
 {% endblock %}
 
@@ -100,29 +117,29 @@
 <div class="category">
     <h4 style="text-align: center;">CATEGORY</h4><br>
     <div class="category-item">
-        <a href="">
+        <a href="{% url 'issue_board_art' %}">
             <img src="{% static 'images/art.png' %}" style="width:20%; height:20%;"><br>
-            <p class="btn btn-warning btn-sm">예술</p>
+            <p>예술</p>
         </a>
     </div>
     <div class="category-item">
-        <a href="">
+        <a href="{% url 'issue_board_design' %}">
             <img src="{% static 'images/design.png' %}" style="width:20%; height:20%;"><br>
-            <p class="btn btn-warning btn-sm">디자인</p>
+            <p>디자인</p>
         </a>
     </div>
     <div class="category-item">
-        <a href="">
+        <a href="{% url 'issue_board_social' %}">
             <img src="{% static 'images/social_media.png' %}" style="width:20%; height:20%;"><br>
-            <p class="btn btn-warning btn-sm">소셜미디어</p>
+            <p>소셜미디어</p>
         </a>
     </div>
 </div>
 
 {% if user.is_superuser %}
-<a href="{% url 'issue_create' %}">
-    <input class="btn btn-info" style="background-color: #ffA500; border-color:#ffA500; float: right; margin-right: 1%"
-        type="button" value="글쓰기"> </a>
+<p style="text-align: right; margin-right: 1%;">
+    <a href="{% url 'issue_create' %}" class="write_btn" style="color: #fff;">글쓰기</a>
+</p>
 {% endif %}
 
 <div class="board">

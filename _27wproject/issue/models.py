@@ -11,6 +11,7 @@ ISSUE_CATEGORY = [
 
 
 class Issue(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100)
     text = models.TextField()
     # many to one field
@@ -27,9 +28,18 @@ class Issue(models.Model):
 
 class IssueComment(models.Model):
     # one to one field
-    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE, null=True, blank=True, related_name='review')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    # title = models.CharField(max_length=100)
     text = models.TextField()
     created_at = models.DateField(auto_now=True)
 
+    class Meta:
+        ordering = ['-id']
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
