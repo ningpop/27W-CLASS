@@ -1,20 +1,19 @@
 from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 
 from .models import Community, CommunityComment
 from .forms import CommunityFormModel
+
+from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator
 # Create your views here.
 
 def community_board(request):
     community_list = Community.objects.all().order_by('-id')
-    #clist = Community.objects.all()
-    #paginator = Paginator(clist, 10)
     paginator = Paginator(community_list, 10)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-    #return render(request, 'community_board.html', {'community_list': community_list, 'posts':posts})
     return render(request, 'community_board.html', {'posts':posts})
 
 # category filtering function
@@ -41,43 +40,29 @@ def community_board_social(request):
 
 
 def community_detail(request, community_id):
-    community_detail = get_object_or_404(Community, pk=community_id)
-    #comments = CommunityComment.objects.filter(community_id)
+    community = get_object_or_404(Community, pk=community_id)
+    comments = CommunityComment.objects.filter(community=community.id)
 
     context = {
-        'community_detail': community_detail,
-        #'comments': comments
+        'community_detail': community,
+        'comments' : comments,
     }
 
     return render(request, 'community_detail.html', context)
 
 
 def community_create(request):
-    '''
-    community = Community(user=request.user)
-    community_list = Community.objects
-    
     if request.method == 'POST':
-        form = CommunityFormModel(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-            #return redirect('/community/')
-            return render(request, 'community_board.html', {'community_list': community_list})
-
-    else:
-        form = CommunityFormModel()
-        return render(request, 'community_create.html', {'form':form})
-    '''
-
-    if request.method == 'POST':
-        community_form = CommunityFormModel(request.POST, request.FILES)
+        username = Community.objects.create(user=request.user)
+        community_form = CommunityFormModel(request.POST, request.FILES, instance=username)
+        
         if community_form.is_valid():
             community_form.save()
             return redirect('/community/')
     else:
         community_form = CommunityFormModel()
     return render(request, 'community_create.html', {'community_form': community_form})
+
 
 def community_update(request, community_id):
     community_update = get_object_or_404(Community, pk=community_id)
@@ -90,58 +75,31 @@ def community_update(request, community_id):
         community_form = CommunityFormModel(instance=community_update)
     return render(request, 'community_update.html', {'community_form':community_form})
 
+
 def community_delete(request, community_id):
     community = Community.objects.get(pk=community_id)
     print("delete : ",Community.objects.get)
     community.delete() 
     return redirect('/community/')
 
-'''
 
-<수정 전>
+@login_required(login_url="/accounts/login")
+#def comment_write(request):
+def community_comment(request):
+    errors = []
+    if request.method == 'POST':
+        community_id = request.POST.get('community_id', '').strip()
+        print("!!!!!!!!!" + request.POST.get('community_id'))
+        text = request.POST.get('content', '').strip()
 
-from django.shortcuts import render
-from django.views.generic import ListView
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Community
+        if not text:
+            errors.append('댓글을 입력해주세요.')
 
-# Create your views here.
-'''
+        if not errors:
+            comment = CommunityComment.objects.create(
+                user=request.user, community_id=community_id, text=text)
 
-'''
-class IndexView(ListView):
-    template_name = 'community_board.html'
-    context_object_name = 'community_object'
+            print(comment.community.id)
+            return redirect(reverse('community_detail', kwargs={'community_id': comment.community.id}))
 
-    def get_queryset(self):
-        return Question.objects.order_by('-pub_date')[5:]
-
-'''
-
-'''
-def community_board(request):
-    community_list = Community.objects
-    return render(request, 'community_board.html', {'community_list': community_list})
-
-def community_detail(request, community_id):
-    community_detail = get_object_or_404(Community, pk=community_id)
-    return render(request, 'community_detail.html', {'community_detail':community_detail})
-
-
-def community_create(request):
-    '''
-
-'''
-    community = Community()
-    community.title = request.GET['title']
-    community.text = request.GET['text']
-
-    #나머지 필드들은 추후에 추가할 예정
-
-    community.save()
-    return redirect('community/')
-'''
-
-'''
-    return render(request, 'community_create.html')
-'''
+    return render(request, 'community_detail.html', {'user': request.user, 'errors': errors})

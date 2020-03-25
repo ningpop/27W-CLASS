@@ -29,5 +29,6 @@ urlpatterns = [
     path('create/', views.community_create, name = 'community_create'),
     path('update/<int:community_id>', views.community_update, name = 'community_update'),
     path('delete/<int:community_id>', views.community_delete, name = 'community_delete'),
+    path('comment/write', views.community_comment, name='community_comment'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

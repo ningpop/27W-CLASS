@@ -20,6 +20,14 @@
         #detail_img {
             width:600px;
         }
+        .wrap {
+            max-width: 1250px;
+            margin: 0 auto;
+            background: #fff;
+            -webkit-box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1);
+        }
+        
     </style>
 {% endblock %}
 
@@ -45,6 +53,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="wrap">
     <div class="banner bg-dark">
         <br>
         <h3>COMMUNITY</h3>
@@ -70,32 +79,59 @@
         <div>
             <p class="lead">{{community_detail.text|safe}}</p>   
         </div>
-        
+        {% if community_detail.user == user %}
         <br><br><br>
         <a class="btn btn-dark" href="{% url 'community_update' community_detail.id %}" role="button">수정</a>
         &nbsp;&nbsp;
         <a class="btn btn-dark" href="{% url 'community_delete' community_detail.id %}" role="button">삭제</a>
+        {% endif %}
     </div>
         
     <br><br>
-    <div>
-        <p style="text-align: left; margin-left: 3%; font-size: 30px;">댓글</p>
-        <hr style="border:solid 1px #ffA500">
-        
-        {% for comment in comments %}
-        <!-- Single Comment -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">{{ comment.user }}</h5>
-                <h5 class="mt-0">{{ comment.text }}</h5>
-                <h5 class="mt-0">{{ comment.created_at }}</h5>
+
+    <!-- 댓글 목록 -->
+
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 comment-bg">
+                <div class="page-header">
+                    <h1>Comments</h1><br>
+                </div>
+                
+                <div class="comments-list">
+                    {% for comment in comments %}
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading user_name">
+                                {{ comment.user }}
+                            </h4>
+                            {{ comment.text }}
+                            <hr>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
+            <br><br>
+    
+            <!-- 댓글 등록하기 -->
+            <h4>댓글 쓰기</h4>
+    
+            <form method="post" action="{% url 'community_comment' %}" enctype="multipart/form-data"
+                class="col-lg-8 col-md-10 mx-auto">
+                {% csrf_token %}
+                <input type="hidden" name="community_id" value="{{ community_detail.id }}">
+                <div class="form-group row">
+                    <textarea class="form-control" name="content" rows="7"></textarea>
+                {% comment %} </div> {% endcomment %}
+                <div class="form-group row float-right">
+                    <button type="submit" class="btn btn-primary">저장하기</button>                    
+                    
+                </div>
+            </form>
         </div>
-        {% endfor %}
-
     </div>
-    </div>
+</div>
 
-    <br><br>
 {% endblock %}

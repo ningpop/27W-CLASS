@@ -42,6 +42,10 @@
             width: 10%;
         }
 
+        .board{
+            text-align: center;
+        }
+
         .write_btn {
             width:60px;
             background-color: #ffA500;
@@ -119,7 +123,7 @@
 
     <hr>
 
-    {% if user.is_superuser %}
+    {% if user.is_authenticated %}
     <p style="text-align: right; margin-right: 3%;">
         <a style="color: #fff;"
             class="write_btn"
@@ -128,7 +132,7 @@
     </p>
     {% endif %}
 
-    <div>
+    <div class="board">
         <hr>
         <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
@@ -169,28 +173,24 @@
             </li>
         </ul>
         {% endfor %}
-    <div>
+
+        <br><br>
+        {%if posts.has_previous%}
+        <a href="?page=1" class="btn btn-outline-secondary btn-sm">First</a>
+        <a href="?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm">Previous</a>
+        {%endif%}
+
+
+        <span> {{posts.number}}</span>
+        <span> of </span>
+        <span>{{posts.paginator.num_pages}} </span>
+
+        {%if posts.has_next%}
+        <a href="?page={{posts.next_page_number}}" class="btn btn-outline-secondary btn-sm">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}" class="btn btn-outline-secondary btn-sm">Last</a>
+        {%endif%}
+    </div>
         
     <hr>
     <br><br>
 {% endblock %}
-
-<!--
-        <table width="100%">
-            <tr>
-                <th scope="col" class="num">글 번호</th>
-            <th scope="col" class="title">글 제목</th>
-            <th scope="col" class="date">작성일</th>
-            <th scope="col" class="who">작성자</th>
-        </tr>
-        
-        {% for community in community_list.all %}
-        <tr>
-            <td class="num"><h4>(글 번호)</h4></td>
-            <td class="title"><h4>{{ community.title }}</h4></td>
-            <td class="date"><h4>{{ community.created_at }}</h4></td>
-            <td class="who"><h4>{{ community.user }}</h4></td>
-        </tr>
-        {% endfor %}
-    </table>    
-    -->

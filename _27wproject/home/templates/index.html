@@ -126,7 +126,7 @@
 <div class="board">
     {% for lecture in lecture_list %}
     {% if forloop.counter0|divisibleby:3 %}
-    <br><br><br>
+    <br>
     {% endif %}
     <div class="card" style="width: 18rem; display:inline-block;">
         <img src="{{ lecture.image.url }}" class="card-img-top" alt="lecture_image">
@@ -139,7 +139,6 @@
     </div>
     {% endfor %}
 </div>
-<br>
 
 <hr>
 
